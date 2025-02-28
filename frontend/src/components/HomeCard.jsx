@@ -1,4 +1,4 @@
-//import the css and ohter needed things once created
+//import the css and other needed things once created
 
 function HomeCard({page}) {
     return (
