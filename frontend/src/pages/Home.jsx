@@ -38,7 +38,6 @@ function Home() {
   
     return (
       <div>
-        <h3>Home page is working</h3>
         <HomeCard page={pages[0]}></HomeCard>
         <HomeCard page={pages[1]}></HomeCard>
         <HomeCard page={pages[2]}></HomeCard>
@@ -53,7 +52,6 @@ function Home() {
 
         ))}
       </div>
-
 
     )
 
