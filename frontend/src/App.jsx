@@ -1,4 +1,4 @@
-import './App.css'
+import './css/App.css'
 import Home from './pages/Home'
 import Audio from './pages/Audio'
 import Instruments from './pages/Instruments'

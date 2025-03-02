@@ -32,11 +32,48 @@
     animation: logo-spin infinite 20s linear;
   }
 }
-
-.card {
-  padding: 2em;
+.home-card {
+  display:inline-flex;
+  padding:1rem;
+  flex-direction:row;
+  position:relative;
+  border-radius: 8px;
+  
 }
+
 
 .read-the-docs {
   color: #888;
+}
+
+
+.navbar-links {
+  display: flex;
+  gap:2rem;
+}
+.nav-link {
+  color:yellow;
+  background-color: red;
+  position: sticky;
+  top: 0px;
+  border: 3px solid black;
+  padding: .5em;
+  margin: 4px 10px 4px 10px;
+  font-size: 300%;
+}
+
+.main-content {
+  background-color: #ccccff;
+  flex:1;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .home-card {
+    font-size: 0.9rem;
+  }
+
+  .page-info {
+    padding: 0.75rem;
+  }
 }
