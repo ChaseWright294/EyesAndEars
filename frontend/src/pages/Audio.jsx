@@ -1,6 +1,8 @@
 function Audio() {
     return(
-        <div></div>
+        <div>
+            <h3>Welcome to the Audio page</h3>
+        </div>
     )
 }
 
