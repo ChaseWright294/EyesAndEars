@@ -4,15 +4,18 @@ function Home() {
     const pages = [
       {
         title: "Tuner",
-        description: "Tune your instrument"
+        description: "Tune your instrument",
+        link: "/tuner"
       },
       {
         title: "Metronome",
-        description: "Practice in rhythm"
+        description: "Practice in rhythm",
+        link: "/metronome"
       },
       {
         title: "Sheet Music Reader",
-        description: "Get help reading your sheet music"
+        description: "Get help reading your sheet music",
+        link: "/sheetmusic"
       }
     ]
   
