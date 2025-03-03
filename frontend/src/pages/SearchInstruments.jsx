@@ -10,7 +10,7 @@ const instruments = [
     "Tuba",
     "Trumpet",
     "Baritone/Euphonium",
-    "Trumbone",
+    "Trombone",
     "French Horn",
     "Saxophone-Alto",
     "Saxophone-Tenor",
@@ -19,7 +19,7 @@ const instruments = [
     "Percussion"
 ];
 
-export default function SearchBar() {
+function SearchBar() {
     const [query, setQuery] = useState("");
 
     const filteredInstruments = instruments.filter((instrument) => instrument.toLowerCase().includes(query.toLowerCase()));
@@ -49,3 +49,4 @@ return(
 
 }
 
+export default SearchBar;
