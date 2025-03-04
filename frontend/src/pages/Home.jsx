@@ -21,6 +21,7 @@ function Home() {
   
     return (
       <div>
+        <NavBar />
         <HomeCard page={pages[0]}></HomeCard>
         <HomeCard page={pages[1]}></HomeCard>
         <HomeCard page={pages[2]}></HomeCard>

@@ -13,10 +13,11 @@ import Login from './components/Login'
 function App() {
   return (
     <div>
-      <NavBar />
       <main className='main-content'>
         <Routes>
-          <Route path="/"             element={<Home />}/>
+          <Route path="/"             element={<Login />}/>
+          <Route path="/home" element={<Home />}/>
+          <Route path="/Signup" element={<Signup />}/>
           <Route path="/audio"        element={<Audio />}/>
           <Route path="/instruments"  element={<Instruments />}/>
           <Route path="/tuner"        element={<Tuner />}/>
