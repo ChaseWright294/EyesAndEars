@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import axios from "axios";
 
 //array of instruments
 const instruments = [
@@ -33,6 +32,7 @@ return(
         onChange={(e) => setQuery(e.target.value)}
         className="w-full p-2 border rounded-lg shadow-md"
         />
+        {query && (
         <ul className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
                 filteredInstruments.map((instrument, index) => (
@@ -44,6 +44,7 @@ return(
                 <li className="p-2 text-gray-500">No instruments found</li>
             )}
             </ul>
+        )}
         </div>    
 );
 
