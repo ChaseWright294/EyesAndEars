@@ -37,6 +37,10 @@
   margin: auto;
   font-size: 300%;
 }
+.nav-link:focus{
+  background-color: black;
+  color:white;
+}
 
 .main-content {
   flex:1;
@@ -58,7 +62,11 @@ h3 {
   font-size: xx-large;
 }
 
-p {
-  font-size: x-large;
+.functionality-card p {
+  color: #FF10F0;
+}
+.functionality-card p:hover {
+  color:blue;
 }
 
+p{font-size: x-large;}
