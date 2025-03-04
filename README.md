@@ -1,5 +1,5 @@
 # EyesAndEars
-# Chase Wright, Azeezat Akinboro, Harriet Mangum, Rachel Townsend, Linal Lad, Aimua Ilogienboh
+Chase Wright, Azeezat Akinboro, Harriet Mangum, Rachel Townsend, Linal Lad, Aimua Ilogienboh
 
 To run the Eyes & Ears project, you will need to have Node.js installed on your computer and enter the repo.
 
