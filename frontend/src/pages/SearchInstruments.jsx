@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../css/SearchInstruments.css'
 
 //array of instruments
 const instruments = [
@@ -41,7 +42,7 @@ return(
                     </li>
                 ))
             ) : (
-                <li className="p-2 text-gray-500">No instruments found</li>
+                <li className="p-2 text-grey-500">No instruments found</li>
             )}
             </ul>
         )}
