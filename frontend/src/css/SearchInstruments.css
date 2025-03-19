@@ -2,12 +2,16 @@
 this will be where we add the styling for the searchInstruments page 
 */
 
-li {
-    color: white;
-    font-size: x-large;
-}
 
 input{
-    font-size:x-large;
+    font-size:xx-large;
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
 }
 
+ul {
+    font-size: xx-large;
+    color: black;
+}
