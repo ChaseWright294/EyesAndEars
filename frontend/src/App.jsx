@@ -1,4 +1,6 @@
 import './css/App.css'
+import './css/HomeCard.css'
+import './css/Navbar.css'
 import Home from './pages/Home'
 import Audio from './pages/Audio'
 import Instruments from './pages/Instruments'
