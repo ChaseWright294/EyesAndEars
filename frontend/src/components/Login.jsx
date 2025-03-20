@@ -4,6 +4,8 @@ import Signup from './Signup';
 import Home from '../pages/Home'
 //import { Link } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/login.css'
+import { FaUser, FaLock } from "react-icons/fa";
 
 const Login = () => {
     const [email_or_mobile, setEmailOrMobile] = useState('');
@@ -27,10 +29,17 @@ const Login = () => {
     };
 
     return (
-      <div>
+      <div className="login-form">
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Email or Mobile Number" value={email_or_mobile} onChange={(e) => setEmailOrMobile(e.target.value)} required />
-            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <h1>Login</h1>
+            <div className="input-box">
+                <input type="text" placeholder="Email or Mobile Number" value={email_or_mobile} onChange={(e) => setEmailOrMobile(e.target.value)} required />
+                <FaUser className="icon"/>
+            </div>
+            <div className="input-box">
+                <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <FaLock className="icon"/>
+            </div>
             <button type="submit">Login</button>
         </form>
         <Link to="/Signup">
