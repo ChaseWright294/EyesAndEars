@@ -7,14 +7,14 @@
     background-color: #B1B7D1;
     margin: 20px;
     padding: 2px 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px 0 #00000020;
     max-width: 300px;
     height: 400px;
     text-align: center;
   }
   .home-card:hover{
     background-color: #314883;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 16px 0 #00000080;
   }
 
   .home-card:hover h3{
