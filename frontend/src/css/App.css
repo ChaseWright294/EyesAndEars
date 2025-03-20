@@ -6,40 +6,14 @@
   text-align: center;
 }
 
-.home-card {
-  display:inline-flex;
-  padding:1rem;
-  flex-direction:row;
-  position:relative;
-  border-radius: 8px;
-  border: 3px solid rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
-  margin:100px 10px 4px 10px;
+body {
+  background-color: #D1B1C8;
 }
+
 
 .page-info {
   font-size: 150%;
-  color: #000;
-}
-
-.navbar-links {
-  display: flex;
-  gap:2rem;
-  flex-direction: row;
-}
-
-.nav-link {
-  color:rgb(0, 0, 0);
-  background-color: rgb(255, 255, 255);
-  top: 0px;
-  border: 3px solid black;
-  padding: .5em;
-  margin: auto;
-  font-size: 300%;
-}
-.nav-link:focus{
-  background-color: black;
-  color:white;
+  color: black;
 }
 
 .main-content {
@@ -59,14 +33,11 @@
 }
 
 h3 {
+  color:black;
   font-size: xx-large;
 }
 
-.functionality-card p {
-  color: #FF10F0;
+p{
+  color:black;
+  font-size: xx-large;
 }
-.functionality-card p:hover {
-  color:blue;
-}
-
-p{font-size: x-large;}
