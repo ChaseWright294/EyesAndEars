@@ -16,6 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Helper function to send OTP
+/*
 const sendOtp = async (email, mobile_number, otp) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -39,6 +40,7 @@ const sendOtp = async (email, mobile_number, otp) => {
         console.error('Error sending OTP:', error);
     }
 };
+*/
 
 // Signup endpoint
 app.post('/api/signup', async (req, res) => {
@@ -56,6 +58,7 @@ app.post('/api/signup', async (req, res) => {
         await sendOtp(email, mobile_number, otp);
         res.status(201).send({ message: 'Signup successful. OTP sent.' });
     } catch (error) {
+        console.error("Signup error: ", error)
         res.status(500).send({ error: 'Error during signup' });
     }
 });
@@ -115,6 +118,19 @@ app.post('/api/login', async (req, res) => {
 
 app.get('/', (req, res) => {
     res.send('Backend is running in VS Code! Hi there!');
+});
+
+app.get('/api/users', async (req, res) => {
+    try {
+        // Query to get all users from the database
+        const result = await pool.query('SELECT * FROM users');
+        
+        // Send the retrieved users data as a response
+        res.json(result.rows);  // result.rows contains the data from the query
+    } catch (err) {
+        console.error('Error retrieving data from database:', err);
+        res.status(500).send({ error: 'Error retrieving data' });
+    }
 });
 
 const PORT = process.env.PORT || 5001;

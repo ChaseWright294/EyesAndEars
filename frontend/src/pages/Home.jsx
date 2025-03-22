@@ -1,5 +1,5 @@
 import HomeCard from "../components/HomeCard"
-
+import NavBar from "../components/NavBar"
 function Home() {
     const pages = [
       {

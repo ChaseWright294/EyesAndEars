@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Signup from './Signup';
-import { Link } from 'react-router-dom';
+import Home from '../pages/Home'
+//import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [email_or_mobile, setEmailOrMobile] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/login', { email_or_mobile, password });
+            //log response being sent
+            console.log({email_or_mobile, password});
+            const response = await axios.post('http://localhost:5001/api/login', { email_or_mobile, password });
+            console.log(response.data);
+
             localStorage.setItem('token', response.data.token);
             alert('Login successful!');
+            navigate('/Home')
         } catch (error) {
-            alert('Error during login');
+            alert('Error during login!');
         }
     };
 
