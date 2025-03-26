@@ -15,3 +15,48 @@ ul {
     font-size: xx-large;
     color: black;
 }
+
+.selected-instruments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.instrument-card {
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.instrument-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.instrument-name {
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.remove-btn {
+    padding: 5px 10px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background-color: darksalmon;
+}
