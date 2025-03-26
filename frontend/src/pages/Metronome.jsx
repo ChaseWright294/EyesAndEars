@@ -1,3 +1,5 @@
+import NavBar from "../components/NavBar";
+
 function Metronome() {
     return(
         <div>
