@@ -23,19 +23,19 @@ const instruments = [
 function SearchBar() {
     const [query, setQuery] = useState("");
 
-    const [selectedInstruments, setSelectedInstrument] = useState(null);
+    const [selectedInstruments, setSelectedInstrument] = useState([]);
 
-    const filteredInstruments = instruments.filter((instrument) => instrument.toLowerCase().includes(query.toLowerCase()));
+    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
     const handleSelect = (instrument) => {
-        if(!selectedInstruments.includes(instrument)){
+        if(!selectedInstruments.some((item) => item.name === instrument.name)) {
             setSelectedInstrument([...selectedInstruments, instrument]);
         }
         setQuery("");
         //alert was removed.
     };
     const handleRemove = (instrument) => {
-        setSelectedInstrument(selectedInstruments.filter(item => item !== instrument));
+        setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
     };
 
 return(
@@ -52,7 +52,9 @@ return(
         <ul className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
                 filteredInstruments.map((instrument, index) => (
-                    <li key={index} onClick={() => handleSelect(instrument)}
+                    <li 
+                    key={index} 
+                    onClick={() => handleSelect(instrument)}
                     className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
                     >
                         {instrument.name}  
