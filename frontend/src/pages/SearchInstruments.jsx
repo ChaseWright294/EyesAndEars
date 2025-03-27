@@ -49,31 +49,31 @@ return(
             className="w-full p-2 border rounded-lg shadow-md"
         />
         {query && (
-        <ul className="mt-2 bg-white shadow-md rounded-lg">
+        <div className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
                 filteredInstruments.map((instrument, index) => (
-                    <li 
+                    <div 
                     key={index} 
                     onClick={() => handleSelect(instrument)}
-                    className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
+                    className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
                         {instrument.name}  
-                    </li>
+                    </div>
                 ))
             ) : (
-                <li className="p-2 text-grey-500">No instruments found</li>
+                <div className="p-2 text-grey-500">No instruments found</div>
             )}
-            </ul>
+            </div>
         )}
         
         <div className = "mt-4">
-            <h2 className = "text-xl font-bold mb-2">Selected Instruments:</h2>
-            <div className = "selected-instruments">
+            
+            <div className = "selected-instruments grid grid-cols-2 gap-4">
             {selectedInstruments.map((instrument, index) => (
-                <div key = {index} className="instrument-card">
-                    <img src = {instrument.image} alt={instrument.name}className = "instrument-image" />
-                    <h3 className="instrument-name">{instrument.name}</h3>
-                    <button onClick= {() => handleRemove(instrument)}className= "remove-btn">
+                <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
+                    <img src = {instrument.image} alt={instrument.name} className = "instrument-image w-full h-32 object-cover rounded-md" />
+                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
+                    <button onClick= {() => handleRemove(instrument)}className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
                     </button>
                 </div>
