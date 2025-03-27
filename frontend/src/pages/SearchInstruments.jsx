@@ -3,7 +3,7 @@ import '../css/SearchInstruments.css'
 
 //array of instruments
 const instruments = [
-    { name: "Piano", image: "/images/piano.jpg" },
+    { name: "Piano", image: "piano.jpg" },
     { name: "Flute", image: "/images/flute.jpg" },
     { name: "Piccolo", image: "/images/piccolo.jpg" },
     { name: "Clarinet", image: "/images/clarinet.jpg" },
@@ -67,11 +67,11 @@ return(
         )}
         
         <div className = "mt-4">
-            
+
             <div className = "selected-instruments grid grid-cols-2 gap-4">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
-                    <img src = {instrument.image} alt={instrument.name} className = "instrument-image w-full h-32 object-cover rounded-md" />
+                    <img src = {`/images/${instrument.image}`} alt={instrument.name} className = "instrument-image w-full h-32 object-cover rounded-md" />
                     <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
                     <button onClick= {() => handleRemove(instrument)}className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
