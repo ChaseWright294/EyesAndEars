@@ -1,26 +1,38 @@
 .home-card {
-    display:inline-flex;
-    flex-direction:row;
-    position:static;
+    /*display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #fff0f5;
     border-radius: 12px;
-    border: 3px solid #314883;
-    background-color: #B1B7D1;
-    margin: 20px;
-    padding: 2px 16px;
-    box-shadow: 0 4px 8px 0 #00000020;
-    max-width: 300px;
-    height: 400px;
-    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    
   }
+  
+  .page-info{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
   .home-card:hover{
-    background-color: #314883;
+    background-color: #bacaf2;
     box-shadow: 0 8px 16px 0 #00000080;
   }
 
-  .home-card:hover h3{
-    color: white;
-  }
-
-  .home-card:hover p{
-    color: #314883;
+  .page-info h2{
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
   }
