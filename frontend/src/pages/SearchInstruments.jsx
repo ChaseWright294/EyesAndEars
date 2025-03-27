@@ -3,15 +3,15 @@ import '../css/SearchInstruments.css'
 
 //array of instruments
 const instruments = [
-    { name: "Piano", image: "piano.jpg" },
-    { name: "Flute", image: "/images/flute.jpg" },
-    { name: "Piccolo", image: "/images/piccolo.jpg" },
-    { name: "Clarinet", image: "/images/clarinet.jpg" },
+    { name: "Piano", image: "piano.png" },
+    { name: "Flute", image: "Flute4.png" },
+    { name: "Piccolo", image: "Piccolo3.png" },
+    { name: "Clarinet", image: "Clarinet.png" },
     { name: "Tuba", image: "/images/tuba.jpg" },
     { name: "Trumpet", image: "/images/trumpet.jpg" },
-    { name: "Baritone/Exphonium", image: "/images/baritone.jpg" },
-    { name: "Trombone", image: "/images/trombone.jpg" },
-    { name: "French Horn", image: "/images/french-horn.jpg" },
+    { name: "Baritone/Euphonium", image: "/images/baritone.jpg" },
+    { name: "Trombone", image: "trombone.png" },
+    { name: "French Horn", image: "french-horn3.png" },
     { name: "Saxophone-Alto", image: "/images/alto-sax.jpg" },
     { name: "Saxophone-Tenor", image: "/images/tenor-sax.jpg" },
     { name: "Oboe", image: "/images/oboe.jpg" },
