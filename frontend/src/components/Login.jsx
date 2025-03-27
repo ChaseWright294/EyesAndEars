@@ -15,12 +15,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log('attempting login with: ', { email, password});
+            //console.log('attempting login with: ', { email, password});
             const response = await axios.post('http://localhost:5001/api/login', { email, password });
             console.log('login successful:', response.data);
 
             localStorage.setItem('token', response.data.token);
-            alert('Login successful!');
+            //localStorage.setItem('name', response.data.name)
+            //alert('Login successful!');
             navigate('/Home')
         } catch (error) {
             console.error('Error during login:', error); 
@@ -43,7 +44,7 @@ const Login = () => {
             <button type="submit">Login</button>
         </form>
         <Link to="/Signup">
-            <button>Signup</button>
+            <button>Don't have an account? Signup</button>
         </Link>
       </div>
     );
