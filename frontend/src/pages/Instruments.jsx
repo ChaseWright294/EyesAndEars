@@ -5,8 +5,7 @@ function Instruments()
 {
     return(
         <div>
-            
-            <h3>Welcome to the Instruments Page</h3>
+            <NavBar/>
             <SearchBar></SearchBar>
         </div>
     )

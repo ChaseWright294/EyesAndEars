@@ -4,6 +4,7 @@ import Welcome from "../components/welcome";
 import metronomeImg from "../assets/metronome.png";
 import tunerImg from "../assets/tuner.png";
 import sheetmusicImg from "../assets/sheet-music.png";
+import NavBar from "../components/NavBar";
 
 
 
@@ -34,6 +35,7 @@ function Home() {
   
     return (
       <>
+      <NavBar/>
       <div className = "home-top-section">
         <Welcome />
       </div>
@@ -45,6 +47,7 @@ function Home() {
         <HomeCard page={pages[2]}></HomeCard>
       </div>
 
+      
       
       </>
     )

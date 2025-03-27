@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaHome, FaMusic, FaGuitar } from "react-icons/fa";
 import "../css/Navbar.css"; 
+import Home from "../pages/Home";
 
 
 
@@ -8,7 +9,7 @@ function NavBar() {
     return (
         <nav className="navbar">
             <div className="navbar-left">
-                <Link to ="/" className="nav-item">
+                <Link to ="/Home" className="nav-item">
                     <FaHome className="nav-icon"/>
                     <span>Home</span>
                 </Link>
