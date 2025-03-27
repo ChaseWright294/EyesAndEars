@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/signup.css'
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [mobile_number, setMobileNumber] = useState('');
+    //const [mobile_number, setMobileNumber] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5001/api/signup', { name, email, mobile_number, password });
-            alert('Signup successful! Check your email for the OTP.');
+            await axios.post('http://localhost:5001/api/signup', { name, email, password });
+            alert('Signup successful!');
             //navigate yo otp verifictaion page
-            Navigate('/OtpVerification');
+            //Navigate('/OtpVerification');
         } catch (error) {
             alert('Error during signup');
         }
@@ -30,9 +31,9 @@ const Signup = () => {
                 <div className="box">
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <div className="box">
+                {/* <div className="box">
                     <input type="text" placeholder="Mobile Number" value={mobile_number} onChange={(e) => setMobileNumber(e.target.value)} required />
-                </div>
+                </div> */}
                 <div className="box">
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
@@ -40,6 +41,9 @@ const Signup = () => {
                     <button type="submit">Sign Up</button>
                 </div>
             </form>
+            <Link to="/">
+                <button>Login</button>
+            </Link>
         </div>
     );
 };
