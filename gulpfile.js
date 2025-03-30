@@ -1,9 +1,6 @@
-const gulp = require('gulp');
-const requireDir = require('require-dir');
-const browserSync = require('browser-sync').create();
-
-global.browserSync = browserSync;
-
-requireDir('./gulp/tasks', {recurse: false});
-
-gulp.task('default', ['watch']);
+function defaultTask(cb) {
+    // place code for your default task here
+    cb();
+  }
+  
+  exports.default = defaultTask
