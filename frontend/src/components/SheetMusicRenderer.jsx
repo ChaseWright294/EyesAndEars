@@ -6,7 +6,8 @@ function SheetMusicRenderer({ musicString }) {
 
     useEffect(() => {
         if (rendererRef.current && musicString) {
-            vexml.renderMusicXML(musicString, rendererRef.current);
+            rendererRef.current.innerHTML = ''; //clear old score
+            vexml.renderMusicXML(musicString, rendererRef.current); //render new score
         }
     }, [musicString]);
 
