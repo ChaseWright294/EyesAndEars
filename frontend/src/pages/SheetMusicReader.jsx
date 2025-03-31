@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import MusicFileUpload from "../components/MusicFileUpload";
 
 function SheetMusicReader() {
-    return(
-        <div>
+  const [file,setFile] = useState(null);  
+
+  return(
+    <div>
       <h1>Sheet Music Reader</h1>
-      <MusicFileUpload />
-      {/* Other components and logic for SheetMusicReader */}
+      <MusicFileUpload setFile={setFile}/>
+      {file ? <p>Displaying: {file.name}</p> : <p>No file uploaded</p>}
     </div>
-    )
+  );
 }
 
 export default SheetMusicReader;
