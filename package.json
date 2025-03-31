@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "axios": "^1.8.1"
+    "@stringsync/vexml": "^0.1.4",
+    "axios": "^1.8.1",
+    "jszip": "^3.10.1",
+    "vexflow": "^5.0.0"
   }
 }
