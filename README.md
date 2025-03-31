@@ -12,3 +12,5 @@ To run the Eyes & Ears project, you will need to have Node.js installed on your 
 If you recieve an error about your computer not allowing you to run scripts, you will need to enable that in your computer's powershell before the project can be ran.
 
 Currently, the software has a functional homepage that will let you move between pages. On the Instruments page, you will be able to see a list of available high school instruments and add them to your list of instruments.
+
+change
