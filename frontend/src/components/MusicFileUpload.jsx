@@ -5,8 +5,6 @@ const MusicFileUpload = ({ setFile }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    // setSelectedFile(file);
-    // setFile(file); //passes the file to SheetMusicReader
 
     if (file && file.name.endsWith(".musicxml")) {
       const reader = new FileReader();
@@ -23,6 +21,8 @@ const MusicFileUpload = ({ setFile }) => {
         alert("File needs to be in .musicxml format. Try again with a .musicxml file.");
       }
   };
+
+  //! old code that may be needed if functionality of this file is changed
 
   // const handleFileUpload = (event) => {
   //   // if (selectedFile) {
@@ -54,6 +54,8 @@ const MusicFileUpload = ({ setFile }) => {
     <div>
       <input type="file" accept=".musicxml" onChange={handleFileChange} />
       {/* <button onClick={handleFileUpload}>Upload</button> */}
+      {/* ^ button didn't serve a purpose at the time so I removed
+            it. Feel free to put it back if you want it there! -Chase */}
       {selectedFile && <p>Selected file: {selectedFile.name}</p>}
     </div>
   );
