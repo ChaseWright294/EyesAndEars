@@ -14,8 +14,6 @@ const Signup = () => {
         try {
             await axios.post('http://localhost:5001/api/signup', { name, email, password });
             alert('Signup successful!');
-            //navigate yo otp verifictaion page
-            //Navigate('/OtpVerification');
         } catch (error) {
             alert('Error during signup');
         }
@@ -31,9 +29,6 @@ const Signup = () => {
                 <div className="box">
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                {/* <div className="box">
-                    <input type="text" placeholder="Mobile Number" value={mobile_number} onChange={(e) => setMobileNumber(e.target.value)} required />
-                </div> */}
                 <div className="box">
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
