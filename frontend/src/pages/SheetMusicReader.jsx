@@ -8,7 +8,7 @@ function SheetMusicReader() {
     <div>
       <h1>Sheet Music Reader</h1>
       <MusicFileUpload setFile={setFile}/>
-      {file ? <p>Displaying: {file.name}</p> : <p>No file uploaded</p>}
+      <pre>{file ? file.substring(0, 500) + "..." : "No file loaded"}</pre>
     </div>
   );
 }
