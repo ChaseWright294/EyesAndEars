@@ -1,4 +1,4 @@
-div .popup{
+.popup{
     position:fixed;
     top: 0;
     left: 0;
@@ -9,7 +9,7 @@ div .popup{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    color:black;
 }
 
 .popup-inner {

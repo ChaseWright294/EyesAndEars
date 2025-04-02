@@ -6,7 +6,7 @@ function Popup(props) {
         <div className="popup" >
             <div className="popup-inner">
                 <button className="close-btn" onClick={() => props.setTrigger(false)}>Close</button>
-                
+                { props.children }
                     <div>
                         <Link to ="/audio" className='save-nav'>saved audios</Link>
                         
