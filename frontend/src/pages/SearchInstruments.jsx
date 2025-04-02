@@ -1,5 +1,6 @@
 import { useState } from "react";
 import '../css/SearchInstruments.css'
+import Popup from "../components/Popup";
 
 //array of instruments
 const instruments = [
@@ -38,9 +39,11 @@ function SearchBar() {
         setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
     };
 
+    const [buttonPopup, setButtonPopup] = useState(false);
+
 return(
     <div className="p-4 max-w-lg mx-auto">
-        
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}></Popup>
         <input
             type="text"
             placeholder="Search for your instrument"
@@ -72,7 +75,9 @@ return(
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
                     <img src = {instrument.image} alt={instrument.name} className = "instrument-image w-full h-32 object-cover rounded-md" />
-                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
+                    <button onClick={() => setButtonPopup(true)}>
+                        {instrument.name}
+                    </button>
                     <button onClick= {() => handleRemove(instrument)}className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
                     </button>
