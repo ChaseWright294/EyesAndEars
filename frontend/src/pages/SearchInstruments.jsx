@@ -7,23 +7,25 @@ const instruments = [
     { name: "Flute", image: "Flute4.png" },
     { name: "Piccolo", image: "Piccolo3.png" },
     { name: "Clarinet", image: "Clarinet.png" },
-    { name: "Tuba", image: "/images/tuba.jpg" },
-    { name: "Trumpet", image: "/images/trumpet.jpg" },
-    { name: "Baritone/Euphonium", image: "/images/baritone.jpg" },
+    { name: "Tuba", image: "tuba3.png" },
+    { name: "Trumpet", image: "trumpet4.png" },
+    { name: "Baritone/Euphonium", image: "baritone.png" },
     { name: "Trombone", image: "trombone.png" },
     { name: "French Horn", image: "french-horn3.png" },
-    { name: "Saxophone-Alto", image: "/images/alto-sax.jpg" },
-    { name: "Saxophone-Tenor", image: "/images/tenor-sax.jpg" },
-    { name: "Oboe", image: "/images/oboe.jpg" },
-    { name: "Bassoon", image: "/images/bassoon.jpg" },
-    { name: "Violin", image: "/images/violin.jpg" },
-    { name: "Percussion", image: "/images/percussion.jpg" }
+    { name: "Saxophone-Alto", image: "alto-sax.png" },
+    { name: "Saxophone-Tenor", image: "tenor-sax.png" },
+    { name: "Oboe", image: "oboe.png" },
+    { name: "Bassoon", image: "bassoon.png" },
+    { name: "Violin", image: "violin.png" },
+    { name: "Percussion", image: "percussion.png" }
 ];
 
 function SearchBar() {
     const [query, setQuery] = useState("");
 
     const [selectedInstruments, setSelectedInstrument] = useState([]);
+
+    const [showSearch, setShowSearch] = useRef(null);
 
     const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -38,16 +40,36 @@ function SearchBar() {
         setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
     };
 
+    const handleShowSearch = () => {
+        setShowSearch(true);
+        setTimeout(() => {
+            searchInputRef.current?.focus();
+        }, 0);
+    };
+
 return(
     <div className="p-4 max-w-lg mx-auto">
+        {!showSearch && (
+            <button
+                onClick={handleShowSearch}
+                className="w-24 h-24 flex-col items-center justify-center border-gray-400 rounded-lg shadow-md hover:bg-gray-200"
+                >
+                    <span className="text-4xl">+</span>
+                    <span className="text-sm">Add Instrument</span>
+                </button>
+        )}
         
+        {showSearch && (
         <input
+            ref={searchInputRef}
             type="text"
             placeholder="Search for your instrument"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full p-2 border rounded-lg shadow-md"
         />
+        )}
+        
         {query && (
         <div className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
