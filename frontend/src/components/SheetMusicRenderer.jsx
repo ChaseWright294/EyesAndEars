@@ -7,7 +7,11 @@ function SheetMusicRenderer({ musicString }) {
     useEffect(() => {
         if (rendererRef.current && musicString) {
             rendererRef.current.innerHTML = ''; //clear old score
-            vexml.renderMusicXML(musicString, rendererRef.current); //render new score
+            try { //error checker, because Windows and Mac have different types of musicxml files it turns out
+                vexml.renderMusicXML(musicString, rendererRef.current); //render new score
+            } catch(error) {
+                rendererRef.current.innerHTML ='<p style=>Error reading .musicxml file. Please be sure you are using the correct type of .musicxml for your OS.</p>'
+            }
         }
     }, [musicString]);
 
