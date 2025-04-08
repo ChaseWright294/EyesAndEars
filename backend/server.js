@@ -120,7 +120,7 @@ app.post('/api/user-instruments', verifyToken, async (req, res) => {
 app.get('/api/user-instruments', verifyToken, async(req, res) => {
     const user_id = req.user.id;
     try {
-        const result = await pool.query("SELECT i_name FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
+        const result = await pool.query("SELECT i_name, i_id_pk FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
         res.json(result.rows);
         console.log("Fetched user instruments: ", result.rows);  
     } catch (error) {
@@ -131,7 +131,12 @@ app.get('/api/user-instruments', verifyToken, async(req, res) => {
 //error part
 app.delete('/api/user-instruments', verifyToken, async(req, res) => {
     const user_id = req.user.id;
-    const instrument_id = req.query.instrument_id;
+    //const instrument_id = req.query.instrument_id;
+    const instrument_id = parseInt(req.query.instrument_id, 10); // Make sure it's an integer
+
+  if (isNaN(instrument_id)) {
+    return res.status(400).json({ error: "Invalid instrument_id" });
+  }
     try {
         await pool.query("DELETE FROM tbl_user_instruments WHERE u_id_fk = $1 AND i_id_fk = $2", [user_id, instrument_id]); 
     } catch (error) {

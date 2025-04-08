@@ -44,7 +44,7 @@ function SearchBar({ userId }) {
     const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
 
     const handleSelect = async (instrument) => {
-        if(!selectedInstruments.some((item) => item.id === instrument.id)) {
+        if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
             try {
                 const token = localStorage.getItem("token");
                 await axios.post("http://localhost:5001/api/user-instruments", {
@@ -64,10 +64,11 @@ function SearchBar({ userId }) {
     const handleRemove = async (instrument) => {
         try {
             const token = localStorage.getItem("token");
-            await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_fk}`, {
+            console.log("Instrument to remove: ", instrument);
+            await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
                 headers: { Authorization: `Bearer ${token}`}
             });
-            setSelectedInstrument(selectedInstruments.filter((item) => item.id !== instrument.id));
+            setSelectedInstrument(selectedInstruments.filter((item) => item.id !== instrument.i_id_pk));
         } catch (error) {
             console.error("Error removing instrument: ", error);
         }        
