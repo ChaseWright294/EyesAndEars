@@ -1,14 +1,21 @@
-import NavBar from "../components/NavBar";
-import AudioRecorder from '../components/AudioRecorder';
+import React, { useState } from "react";
+import AudioRecorder from "../components/AudioRecorder";
+import SavedAudioGrid from "../components/SavedAudioGrid";
 
+const Audio = () => {
+  const [audioFiles, setAudioFiles] = useState([]);
 
-function Audio() {
-    return(
-        <div>
-            <AudioRecorder />
-            <h3>Welcome to the Audio page</h3>
-        </div>
-    )
-}
+  const handleAudioSave = (newAudio) => {
+    setAudioFiles((prevFiles) => [...prevFiles, newAudio]);
+  };
 
-export default Audio
+  return (
+    <div>
+      <h3>Welcome to the Audio Page</h3>
+      <AudioRecorder onSave={handleAudioSave} />
+      <SavedAudioGrid audioFiles={audioFiles} />
+    </div>
+  );
+};
+
+export default Audio;

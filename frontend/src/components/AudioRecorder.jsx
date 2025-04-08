@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const AudioRecorder = () => {
+const AudioRecorder = ({ onSave }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioChunks, setAudioChunks] = useState([]);
+  const [recordedAudio, setRecordedAudio] = useState(null);
 
   const handleRecord = async () => {
     if (!isRecording) {
@@ -14,9 +15,9 @@ const AudioRecorder = () => {
 
         recorder.ondataavailable = (e) => chunks.push(e.data);
         recorder.onstop = () => {
-          const audioBlob = new Blob(chunks, { type: 'audio/webm' });
+          const audioBlob = new Blob(chunks, { type: "audio/webm" });
           const url = URL.createObjectURL(audioBlob);
-          downloadAudio(url);
+          setRecordedAudio(url);
         };
 
         recorder.start();
@@ -24,8 +25,8 @@ const AudioRecorder = () => {
         setAudioChunks(chunks);
         setIsRecording(true);
       } catch (err) {
-        console.error('Microphone access denied or unavailable:', err);
-        alert('Microphone access is required to record audio.');
+        console.error("Microphone access denied or unavailable:", err);
+        alert("Microphone access is required to record audio.");
       }
     } else {
       mediaRecorder.stop();
@@ -33,21 +34,26 @@ const AudioRecorder = () => {
     }
   };
 
-  const downloadAudio = (url) => {
-    const name = prompt('Enter a name for your recording:', 'my-recording');
-    const a = document.createElement('a');
-    a.style.display = 'none';
-    a.href = url;
-    a.download = `${name || 'recording'}.webm`;
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(url);
+  const handleSaveAudio = () => {
+    if (recordedAudio) {
+      const newAudio = {
+        name: `Audio ${Date.now()}`, // Generate a unique name
+        url: recordedAudio, // URL of the recorded audio
+      };
+      onSave(newAudio); // Pass the new audio file to the parent component
+      setRecordedAudio(null); // Reset recorded audio
+    } else {
+      alert("No audio recorded to save.");
+    }
   };
 
   return (
     <div>
       <button onClick={handleRecord}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
+        {isRecording ? "Stop Recording" : "Start Recording"}
+      </button>
+      <button onClick={handleSaveAudio} disabled={!recordedAudio}>
+        Save Audio
       </button>
     </div>
   );

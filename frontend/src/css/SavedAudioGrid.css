@@ -1,0 +1,33 @@
+.audio-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.audio-grid-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.play-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.play-button:hover {
+  background-color: #45a049;
+}
+
+.audio-name {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
