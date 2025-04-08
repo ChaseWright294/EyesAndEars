@@ -1,3 +1,4 @@
+import NavBar from "../components/NavBar"
 function Tuner() {
     return(
         <div>

@@ -8,22 +8,23 @@ import '../css/login.css'
 import { FaUser, FaLock } from 'react-icons/fa';
 
 const Login = () => {
-    const [email_or_mobile, setEmailOrMobile] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            //log response being sent
-            console.log({email_or_mobile, password});
-            const response = await axios.post('http://localhost:5001/api/login', { email_or_mobile, password });
-            console.log(response.data);
+            //console.log('attempting login with: ', { email, password});
+            const response = await axios.post('http://localhost:5001/api/login', { email, password });
+            console.log('login successful:', response.data);
 
             localStorage.setItem('token', response.data.token);
-            alert('Login successful!');
+            //localStorage.setItem('name', response.data.name)
+            //alert('Login successful!');
             navigate('/Home')
         } catch (error) {
+            console.error('Error during login:', error); 
             alert('Error during login!');
         }
     };
@@ -33,7 +34,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
             <h1>Login</h1>
             <div className="input-box">
-                <input type="text" placeholder="Email or Mobile Number" value={email_or_mobile} onChange={(e) => setEmailOrMobile(e.target.value)} required />
+                <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <FaUser className="icon"/>
             </div>
             <div className="input-box">
@@ -43,7 +44,7 @@ const Login = () => {
             <button type="submit">Login</button>
         </form>
         <Link to="/Signup">
-            <button>Signup</button>
+            <button>Don't have an account? Signup</button>
         </Link>
       </div>
     );
