@@ -27,7 +27,7 @@ function SearchBar() {
 
     const [showSearch, setShowSearch] = useState(false);
 
-    const searchInputRef = useRef(null);
+    const searchInputRef = useState(null);
 
     const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -46,7 +46,7 @@ function SearchBar() {
     const handleShowSearch = () => {
         setShowSearch(true);
         setTimeout(() => {
-            searchInputRef.current?.focus();
+            //searchInputRef.current?.focus();
         }, 0);
     };
 
@@ -64,7 +64,7 @@ return(
         
         {showSearch && (
         <input
-            ref={searchInputRef}
+            //ref={searchInputRef}
             type="text"
             placeholder="Search for your instrument"
             value={query}
