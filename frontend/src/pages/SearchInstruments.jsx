@@ -1,5 +1,5 @@
-import { useState } from "react";
-import '../css/SearchInstruments.css'
+import { useState, useRef } from "react";
+import "../css/SearchInstruments.css";
 import Popup from "../components/Popup";
 
 //array of instruments
@@ -26,7 +26,9 @@ function SearchBar() {
 
     const [selectedInstruments, setSelectedInstrument] = useState([]);
 
-    const [showSearch, setShowSearch] = useState(null);
+    const [showSearch, setShowSearch] = useState(false);
+
+    const searchInputRef = useRef(null);
 
     const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
@@ -35,6 +37,7 @@ function SearchBar() {
             setSelectedInstrument([...selectedInstruments, instrument]);
         }
         setQuery("");
+        setShowSearch(false); //hides search bar after each selection
         //alert was removed.
     };
     const handleRemove = (instrument) => {
@@ -53,7 +56,7 @@ function SearchBar() {
 
 return(
     <div className="p-4 max-w-lg mx-auto">
-        {!showSearch && (
+        {/*"Add Instrument" icon*/
             <button
                 onClick={handleShowSearch}
                 className="w-24 h-24 flex-col items-center justify-center border-gray-400 rounded-lg shadow-md hover:bg-gray-200"
@@ -61,7 +64,7 @@ return(
                     <span className="text-4xl">+</span>
                     <span className="text-sm">Add Instrument</span>
                 </button>
-        )}
+        }
         
         {showSearch && (
         <input
@@ -93,18 +96,23 @@ return(
         )}
         
         <div className = "mt-4">
-
             <div className = "selected-instruments grid grid-cols-2 gap-4">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
-                    <img src = {`/images/${instrument.image}`} alt={instrument.name} className = "instrument-image w-full h-32 object-cover rounded-md" />
+
+                    <img
+                        src = {`/images/${instrument.image}`}
+                        alt={instrument.name}
+                        className = "instrument-image w-full h-32 object-cover rounded-md"
+                    />
                     <button onClick={() => {
                         setButtonPopup(true);
                         setClickedInstrument(instrument.name);
                         }}>
                         {instrument.name}
                     </button>
-                    <button onClick= {() => handleRemove(instrument)}className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
+                    <button onClick= {() => handleRemove(instrument)}
+                    className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
                     </button>
                 </div>
