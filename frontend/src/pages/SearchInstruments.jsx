@@ -1,46 +1,81 @@
-import { useState, useRef } from "react";
-import "../css/SearchInstruments.css";
+import { useEffect, useState } from "react";
+import '../css/SearchInstruments.css'
+import { getUserId } from "../../../backend/auth";
+import axios from "axios";
 
-//array of instruments
-const instruments = [
-    { name: "Piano", image: "piano.png" },
-    { name: "Flute", image: "Flute4.png" },
-    { name: "Piccolo", image: "Piccolo3.png" },
-    { name: "Clarinet", image: "Clarinet.png" },
-    { name: "Tuba", image: "tuba3.png" },
-    { name: "Trumpet", image: "trumpet4.png" },
-    { name: "Baritone/Euphonium", image: "baritone.png" },
-    { name: "Trombone", image: "trombone.png" },
-    { name: "French Horn", image: "french-horn3.png" },
-    { name: "Saxophone-Alto", image: "alto-sax.png" },
-    { name: "Saxophone-Tenor", image: "tenor-sax.png" },
-    { name: "Oboe", image: "oboe.png" },
-    { name: "Bassoon", image: "bassoon.png" },
-    { name: "Violin", image: "violin.png" },
-    { name: "Percussion", image: "percussion.png" }
-];
+const userId = getUserId();
 
-function SearchBar() {
+function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
-
+    const [instruments, setInstruments] = useState([]);
     const [selectedInstruments, setSelectedInstrument] = useState([]);
 
     const [showSearch, setShowSearch] = useState(false);
 
     const searchInputRef = useRef(null);
 
-    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
+    //fetch all instruments from the backend
+    useEffect(() => {
+        const fetchInstruments = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/api/instruments');
+                console.log("Fetched Instruments: ", response.data);
+                setInstruments(response.data);
+            } catch (error) {
+                console.error("Error fetching instruments: ", error);
+            }
+        };
+        fetchInstruments();
+    }, []);
 
-    const handleSelect = (instrument) => {
-        if(!selectedInstruments.some((item) => item.name === instrument.name)) {
-            setSelectedInstrument([...selectedInstruments, instrument]);
+    //fetch user's selected instruments
+    useEffect(() => {
+        const fetchUserInstruments = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get("http://localhost:5001/api/user-instruments", {headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument(response.data);             
+                console.log("Fetched User instruments: ", response.data);
+            } catch(error){
+                console.error("Error fetching user instruments: ", error);
+            }
+        };
+        fetchUserInstruments();
+        
+    }, []);  
+
+    const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
+
+    const handleSelect = async (instrument) => {
+        if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
+            try {
+                const token = localStorage.getItem("token");
+                await axios.post("http://localhost:5001/api/user-instruments", {
+                    instrument_id: instrument.i_id_pk
+                }, {
+                    headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument([...selectedInstruments, instrument]);
+            } catch (error) {
+                console.error("Error adding instrument: ", error);
+            }
         }
+        //fetchUserInstruments();
         setQuery("");
-        setShowSearch(false); //hides search bar after each selection
-        //alert was removed.
+        setShowSearch(false); //removes search bar after addition
     };
-    const handleRemove = (instrument) => {
-        setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
+    const handleRemove = async (instrument) => {
+        try {
+            const token = localStorage.getItem("token");
+            console.log("Instrument to remove: ", instrument);
+            await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            setSelectedInstrument(selectedInstruments.filter((item) => item.id !== instrument.i_id_pk));
+        } catch (error) {
+            console.error("Error removing instrument: ", error);
+        }        
     };
 
     const handleShowSearch = () => {
@@ -82,8 +117,8 @@ return(
                     onClick={() => handleSelect(instrument)}
                     className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
-                        {instrument.name}  
-                    </div>
+                        {instrument.i_name}  
+                    </li>
                 ))
             ) : (
                 <div className="p-2 text-grey-500">No instruments found</div>
@@ -101,14 +136,14 @@ return(
                         alt={instrument.name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
-                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
+                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.i_name}</h3>
                     <button onClick= {() => handleRemove(instrument)}
                     className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
                     </button>
                 </div>
             ))}
-        </div>
+            </div>
     </div>
     </div>
 );

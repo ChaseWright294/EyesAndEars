@@ -9,6 +9,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const verifyToken = require('./authMiddle.js');
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const app = express();
 app.use(express.json());
@@ -22,11 +23,7 @@ app.post('/api/signup', async (req, res) => {
 
     try {
         await pool.query(
-<<<<<<< HEAD
             'INSERT INTO tbl_users (u_name, u_email, u_hashpass) VALUES ($1, $2, $3)',
-=======
-            'INSERT INTO tbl_users (fld_u_name, fld_u_email, fld_u_hashpass) VALUES ($1, $2, $3)',
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
             [name, email, hashedPassword]
         );
 
@@ -43,11 +40,7 @@ app.post('/api/login', async (req, res) => {
 
     try {
         const result = await pool.query(
-<<<<<<< HEAD
             'SELECT * FROM tbl_users WHERE u_email = $1',
-=======
-            'SELECT * FROM tbl_users WHERE fld_u_email = $1',
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
             [email]
         );
         console.log(result);
@@ -58,21 +51,13 @@ app.post('/api/login', async (req, res) => {
 
         const user = result.rows[0];
         console.log(user);
-<<<<<<< HEAD
         const isMatch = await bcrypt.compare(password, user.u_hashpass);
-=======
-        const isMatch = await bcrypt.compare(password, user.fld_u_hashpass);
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
 
         if (!isMatch) {
             return res.status(401).send({ error: 'Invalid credentials' });
         }
 
-<<<<<<< HEAD
         const token = jwt.sign({ id: user.u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
-=======
-        const token = jwt.sign({ id: user.fld_u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
         res.send({ token });
     } catch (error) {
         console.error('Login error:', error);
@@ -100,6 +85,57 @@ app.get('/api/tbl_users', async (req, res) => {
         res.status(500).send({ error: 'Error retrieving data' });
     }
 });
+
+app.get('/api/instruments', async(req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM tbl_instruments ORDER BY i_name ASC");
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Error fetching instruments" });
+    }
+});
+
+app.post('/api/user-instruments', verifyToken, async (req, res) => {
+    const { instrument_id } = req.body;
+    const user_id = req.user.id;
+
+    try {
+        await pool.query(
+            "INSERT INTO tbl_user_instruments (u_id_fk, i_id_fk) VALUES ($1, $2) ON CONFLICT DO NOTHING", [user_id, instrument_id]
+        );
+        res.json({ message: "Instrument added successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Error adding instrument"});
+    }
+});
+
+app.get('/api/user-instruments', verifyToken, async(req, res) => {
+    const user_id = req.user.id;
+    try {
+        const result = await pool.query("SELECT i_name, i_id_pk FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
+        res.json(result.rows);
+        console.log("Fetched user instruments: ", result.rows);  
+    } catch (error) {
+        console.error("Error fetching user instruments: ", error);
+    }
+})
+
+app.delete('/api/user-instruments', verifyToken, async(req, res) => {
+    const user_id = req.user.id;
+    const instrument_id = req.query.instrument_id;
+
+  if (isNaN(instrument_id)) {
+    return res.status(400).json({ error: "Invalid instrument_id" });
+  }
+    try {
+        await pool.query("DELETE FROM tbl_user_instruments WHERE u_id_fk = $1 AND i_id_fk = $2", [user_id, instrument_id]); 
+    } catch (error) {
+        console.error("Error deleting user instrument: ", error);
+    }
+})
+
+
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
