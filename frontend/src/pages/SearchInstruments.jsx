@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
@@ -32,7 +32,7 @@ function SearchBar({ userId }) {
 
     const [showSearch, setShowSearch] = useState(false);
 
-    const searchInputRef = useRef(null);
+    //const searchInputRef = useState(null);
 
     //fetch all instruments from the backend
     useEffect(() => {
@@ -155,15 +155,15 @@ return(
                 <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
 
                     <img
-                        src = {`/images/${instrument.image}`}
-                        alt={instrument.name}
+                        src = {`/images/${instrument.i_image}`}
+                        alt={instrument.i_name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
                     <button onClick={() => {
                         setButtonPopup(true);
-                        setClickedInstrument(instrument.name);
+                        setClickedInstrument(instrument.i_name);
                         }}>
-                        {instrument.name}
+                        {instrument.i_name}
                     </button>
                     <button onClick= {() => handleRemove(instrument)}
                     className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
