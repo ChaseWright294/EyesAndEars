@@ -10,7 +10,7 @@ function Popup(props) {
                     <div>
                         <Link to ="/audio" className='save-nav'>saved audios</Link>
                         
-                        <Link to ="/sheetmusic" className='save-nav'>uploaded music</Link>
+                        <Link to ="/sheetmusic" className='save-nav'>upload sheet music</Link>
                     </div>
                
             </div>
