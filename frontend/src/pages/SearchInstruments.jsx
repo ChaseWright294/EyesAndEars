@@ -55,11 +55,12 @@ return(
         {/*"Add Instrument" icon*/
             <button
                 onClick={handleShowSearch}
-                className="w-24 h-24 flex-col items-center justify-center border-gray-400 rounded-lg shadow-md hover:bg-gray-200"
+                aria-label="Add Instrument" //for screen reader support!
+                className="w-28 h-28 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
                 >
-                    <span className="text-4xl">+</span>
-                    <span className="text-sm">Add Instrument</span>
-                </button>
+                    <span className="text-5xl text-black font-bold">+</span>
+                    <span className="text-base text-black font-semibold mt-1">Add Instrument</span>
+                </button>    
         }
         
         {showSearch && (
