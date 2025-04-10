@@ -1,5 +1,9 @@
-import { useState, useRef } from "react";
-import "../css/SearchInstruments.css";
+import { useEffect, useState, useRef } from "react";
+import '../css/SearchInstruments.css'
+import { getUserId } from "../../../backend/auth";
+import axios from "axios";
+
+const userId = getUserId();
 import Popup from "../components/Popup";
 
 //array of instruments
@@ -21,27 +25,77 @@ const instruments = [
     { name: "Percussion", image: "percussion.png" }
 ];
 
-function SearchBar() {
+function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
-
+    const [instruments, setInstruments] = useState([]);
     const [selectedInstruments, setSelectedInstrument] = useState([]);
 
     const [showSearch, setShowSearch] = useState(false);
 
     const searchInputRef = useRef(null);
 
-    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
+    //fetch all instruments from the backend
+    useEffect(() => {
+        const fetchInstruments = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/api/instruments');
+                console.log("Fetched Instruments: ", response.data);
+                setInstruments(response.data);
+            } catch (error) {
+                console.error("Error fetching instruments: ", error);
+            }
+        };
+        fetchInstruments();
+    }, []);
 
-    const handleSelect = (instrument) => {
-        if(!selectedInstruments.some((item) => item.name === instrument.name)) {
-            setSelectedInstrument([...selectedInstruments, instrument]);
+    //fetch user's selected instruments
+    useEffect(() => {
+        const fetchUserInstruments = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get("http://localhost:5001/api/user-instruments", {headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument(response.data);             
+                console.log("Fetched User instruments: ", response.data);
+            } catch(error){
+                console.error("Error fetching user instruments: ", error);
+            }
+        };
+        fetchUserInstruments();
+        
+    }, []);  
+
+    const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
+
+    const handleSelect = async (instrument) => {
+        if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
+            try {
+                const token = localStorage.getItem("token");
+                await axios.post("http://localhost:5001/api/user-instruments", {
+                    instrument_id: instrument.i_id_pk
+                }, {
+                    headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument([...selectedInstruments, instrument]);
+            } catch (error) {
+                console.error("Error adding instrument: ", error);
+            }
         }
+        //fetchUserInstruments();
         setQuery("");
-        setShowSearch(false); //hides search bar after each selection
-        //alert was removed.
+        setShowSearch(false); //removes search bar after addition
     };
-    const handleRemove = (instrument) => {
-        setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
+    const handleRemove = async (instrument) => {
+        try {
+            const token = localStorage.getItem("token");
+            console.log("Instrument to remove: ", instrument);
+            await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            setSelectedInstrument(selectedInstruments.filter((item) => item.id !== instrument.i_id_pk));
+        } catch (error) {
+            console.error("Error removing instrument: ", error);
+        }        
     };
 
     const handleShowSearch = () => {
@@ -86,7 +140,7 @@ return(
                     onClick={() => handleSelect(instrument)}
                     className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
-                        {instrument.name}  
+                        {instrument.i_name}  
                     </div>
                 ))
             ) : (
@@ -117,7 +171,7 @@ return(
                     </button>
                 </div>
             ))}
-        </div>
+            </div>
     </div>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
             {clickedInstrument}
