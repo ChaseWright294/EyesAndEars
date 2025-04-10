@@ -118,7 +118,7 @@ return(
                     className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
                         {instrument.i_name}  
-                    </li>
+                    </div>
                 ))
             ) : (
                 <div className="p-2 text-grey-500">No instruments found</div>
