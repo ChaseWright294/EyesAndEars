@@ -26,10 +26,10 @@ function Home() {
         image: metronomeImg
       },
       {
-        title: "Sheet Music Reader",
-        description: "Get help reading your sheet music",
-        link: "/sheetmusic",
-        image: sheetmusicImg
+        title: "Saved Audio",
+        description: "View your saved audio for each instrument",
+        link: "/audio",
+        image: sheetmusicImg //change to audio image once one is found
       }
     ]
   
