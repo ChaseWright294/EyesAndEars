@@ -16,13 +16,6 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-//import { getUserId } from './auth.js';
-//import verifyToken from './authMiddle.js';
-
-//const userId = getUserId();
-
-
-
 // Signup endpoint
 app.post('/api/signup', async (req, res) => {
     const { name, email, password } = req.body;
@@ -128,11 +121,9 @@ app.get('/api/user-instruments', verifyToken, async(req, res) => {
     }
 })
 
-//error part
 app.delete('/api/user-instruments', verifyToken, async(req, res) => {
     const user_id = req.user.id;
-    //const instrument_id = req.query.instrument_id;
-    const instrument_id = parseInt(req.query.instrument_id, 10); // Make sure it's an integer
+    const instrument_id = req.query.instrument_id;
 
   if (isNaN(instrument_id)) {
     return res.status(400).json({ error: "Invalid instrument_id" });
