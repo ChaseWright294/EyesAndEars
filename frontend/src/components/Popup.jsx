@@ -8,9 +8,9 @@ function Popup(props) {
                 <button className="close-btn" onClick={() => props.setTrigger(false)}>Close</button>
                 { props.children }
                     <div>
-                        <Link to ="/audio" className='save-nav'>saved audios</Link>
+                        <Link to ="/saved-audio" className='save-nav'>saved audios</Link>
                         
-                        <Link to ="/sheetmusic" className='save-nav'>upload sheet music</Link>
+                        <Link to ="/upload-sheetmusic" className='save-nav'>upload sheet music</Link>
                     </div>
                
             </div>

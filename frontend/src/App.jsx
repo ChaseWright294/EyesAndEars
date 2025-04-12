@@ -12,6 +12,7 @@ import NavBar from './components/NavBar'
 import Signup from './components/Signup'
 import Login from './components/Login'
 //import OtpVerification from './components/Otpverification'
+import UploadSheetMusic from './pages/UploadSheetMusic'
 
 function App() {
   return (
@@ -21,11 +22,12 @@ function App() {
           <Route path="/"             element={<Login />}/>
           <Route path="/home" element={<Home />}/>
           <Route path="/Signup" element={<Signup />}/>
-          <Route path="/audio"        element={<Audio />}/>
+          <Route path="/saved-audio"        element={<Audio />}/>
           <Route path="/instruments"  element={<Instruments />}/>
           <Route path="/tuner"        element={<Tuner />}/>
           <Route path="/metronome"    element={<Metronome />}/>
           <Route path="/sheetmusic"   element={<SheetMusicReader />}/>
+          <Route path="/upload-sheetmusic" element={<UploadSheetMusic />}/>
           {/* <Route path="OtpVerification" element={<OtpVerification />}/> */}
         </Routes>
       </main>
