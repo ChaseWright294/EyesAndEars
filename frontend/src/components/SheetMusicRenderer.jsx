@@ -1,5 +1,6 @@
 import * as vexml from '@stringsync/vexml';
 import { useEffect, useRef } from 'react';
+import '../css/SheetMusicRenderer.css'
 
 function SheetMusicRenderer({ musicString }) {
     const rendererRef = useRef(null);
@@ -16,7 +17,7 @@ function SheetMusicRenderer({ musicString }) {
     }, [musicString]);
 
     return (
-        <div>
+        <div className='renderer'>
             <div id="renderer" ref={rendererRef}></div>
         </div>
     );
