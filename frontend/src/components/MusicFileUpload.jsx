@@ -50,14 +50,24 @@ const MusicFileUpload = ({ setFile }) => {
   //   }
   // };
 
+  const uploadFile = document.querySelector('.upload')
+  if(uploadFile){
+    uploadFile.addEventListener('submit', function(e) {
+      e.preventDefault()
+      let file = e.target.uploadFile.files[0]
+
+      let formData = new FormData()
+      formData.append('file',file)
+    })
+  }
+
   return (
-    <div>
-      <input type="file" accept=".musicxml" onChange={handleFileChange} />
-      {/* <button onClick={handleFileUpload}>Upload</button> */}
-      {/* ^ button didn't serve a purpose at the time so I removed
-            it. Feel free to put it back if you want it there! -Chase */}
+    <form className="upload">
+      <input type="file" name="uploadFile" accept=".musicxml" onChange={handleFileChange} required/>
+      <br/>
+      <input type="submit" />
       {selectedFile && <p>Selected file: {selectedFile.name}</p>}
-    </div>
+    </form>
   );
 };
 
