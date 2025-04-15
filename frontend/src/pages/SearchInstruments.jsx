@@ -32,40 +32,9 @@ function SearchBar({ userId }) {
 
     const [showSearch, setShowSearch] = useState(false);
 
-    //const searchInputRef = useState(null);
+    const searchInputRef = useRef(null);
 
-    //fetch all instruments from the backend
-    useEffect(() => {
-        const fetchInstruments = async () => {
-            try {
-                const response = await axios.get('http://localhost:5001/api/instruments');
-                console.log("Fetched Instruments: ", response.data);
-                setInstruments(response.data);
-            } catch (error) {
-                console.error("Error fetching instruments: ", error);
-            }
-        };
-        fetchInstruments();
-    }, []);
-
-    //fetch user's selected instruments
-    useEffect(() => {
-        const fetchUserInstruments = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:5001/api/user-instruments", {headers: { Authorization: `Bearer ${token}`}
-                });
-                setSelectedInstrument(response.data);             
-                console.log("Fetched User instruments: ", response.data);
-            } catch(error){
-                console.error("Error fetching user instruments: ", error);
-            }
-        };
-        fetchUserInstruments();
-        
-    }, []);  
-
-    const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
+    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
     const handleSelect = async (instrument) => {
         if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
@@ -101,7 +70,7 @@ function SearchBar({ userId }) {
     const handleShowSearch = () => {
         setShowSearch(true);
         setTimeout(() => {
-            //searchInputRef.current?.focus();
+            searchInputRef.current?.focus();
         }, 0);
     };
 
@@ -113,11 +82,12 @@ return(
         {/*"Add Instrument" icon*/
             <button
                 onClick={handleShowSearch}
-                className="w-24 h-24 flex-col items-center justify-center border-gray-400 rounded-lg shadow-md hover:bg-gray-200"
+                aria-label=" Add Instrument" //for screen reader support!
+                className="w-32 h-32 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
                 >
-                    <span className="text-4xl">+</span>
-                    <span className="text-sm">Add Instrument</span>
-                </button>
+                    <span className="text-5xl text-black font-bold">+</span>
+                    <span className="text-base text-black font-semibold mt-1"> Add Instrument</span>
+                </button>    
         }
         
         {showSearch && (
@@ -149,22 +119,24 @@ return(
             </div>
         )}
         
-        <div className = "mt-4">
-            <div className = "selected-instruments grid grid-cols-2 gap-4">
+        <div className = "mt-6">
+            <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
             {selectedInstruments.map((instrument, index) => (
-                <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
+                <div key = {index} className="relative instrument-card p-2 border rounded-lg shadow-md text-center bg-white">
+                    <button
+                        onClick={() => handleRemove(instrument)}
+                        className = "absolute top-0 right-0 big-red-600 text-white rounded-bl-lg px-2 py-1 hover:bg-red-700"
+                        aria-label = {`Remove ${instrument.name}`}
+                        >
+                            x
+                        </button>
 
                     <img
                         src = {`/images/${instrument.i_image}`}
                         alt={instrument.i_name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
-                    <button onClick={() => {
-                        setButtonPopup(true);
-                        setClickedInstrument(instrument.i_name);
-                        }}>
-                        {instrument.i_name}
-                    </button>
+                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
                     <button onClick= {() => handleRemove(instrument)}
                     className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
                         Remove
