@@ -55,11 +55,11 @@ return(
         {/*"Add Instrument" icon*/
             <button
                 onClick={handleShowSearch}
-                aria-label="Add Instrument" //for screen reader support!
-                className="w-28 h-28 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
+                aria-label=" Add Instrument" //for screen reader support!
+                className="w-32 h-32 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
                 >
                     <span className="text-5xl text-black font-bold">+</span>
-                    <span className="text-base text-black font-semibold mt-1">Add Instrument</span>
+                    <span className="text-base text-black font-semibold mt-1"> Add Instrument</span>
                 </button>    
         }
         
@@ -93,7 +93,7 @@ return(
         )}
         
         <div className = "mt-4">
-            <div className = "selected-instruments grid grid-cols-2 gap-4">
+            <div className = "selected-instruments grid grid-cols-3 gap-4">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
 
