@@ -22,11 +22,7 @@ app.post('/api/signup', async (req, res) => {
 
     try {
         await pool.query(
-<<<<<<< HEAD
             'INSERT INTO tbl_users (u_name, u_email, u_hashpass) VALUES ($1, $2, $3)',
-=======
-            'INSERT INTO tbl_users (fld_u_name, fld_u_email, fld_u_hashpass) VALUES ($1, $2, $3)',
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
             [name, email, hashedPassword]
         );
 
@@ -43,11 +39,7 @@ app.post('/api/login', async (req, res) => {
 
     try {
         const result = await pool.query(
-<<<<<<< HEAD
             'SELECT * FROM tbl_users WHERE u_email = $1',
-=======
-            'SELECT * FROM tbl_users WHERE fld_u_email = $1',
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
             [email]
         );
         console.log(result);
@@ -58,21 +50,13 @@ app.post('/api/login', async (req, res) => {
 
         const user = result.rows[0];
         console.log(user);
-<<<<<<< HEAD
         const isMatch = await bcrypt.compare(password, user.u_hashpass);
-=======
-        const isMatch = await bcrypt.compare(password, user.fld_u_hashpass);
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
 
         if (!isMatch) {
             return res.status(401).send({ error: 'Invalid credentials' });
         }
 
-<<<<<<< HEAD
         const token = jwt.sign({ id: user.u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
-=======
-        const token = jwt.sign({ id: user.fld_u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
->>>>>>> cf7ccad5c9ba4d340fd6ff5cd0a63bbf24b2d6dd
         res.send({ token });
     } catch (error) {
         console.error('Login error:', error);
