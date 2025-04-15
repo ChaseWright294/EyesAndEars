@@ -7,23 +7,6 @@ const userId = getUserId();
 import Popup from "../components/Popup";
 
 //array of instruments
-const instruments = [
-    { name: "Piano", image: "piano.png" },
-    { name: "Flute", image: "Flute4.png" },
-    { name: "Piccolo", image: "Piccolo3.png" },
-    { name: "Clarinet", image: "Clarinet.png" },
-    { name: "Tuba", image: "tuba3.png" },
-    { name: "Trumpet", image: "trumpet4.png" },
-    { name: "Baritone/Euphonium", image: "baritone.png" },
-    { name: "Trombone", image: "trombone.png" },
-    { name: "French Horn", image: "french-horn3.png" },
-    { name: "Saxophone-Alto", image: "alto-sax.png" },
-    { name: "Saxophone-Tenor", image: "tenor-sax.png" },
-    { name: "Oboe", image: "oboe.png" },
-    { name: "Bassoon", image: "bassoon.png" },
-    { name: "Violin", image: "violin.png" },
-    { name: "Percussion", image: "percussion.png" }
-];
 
 function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
