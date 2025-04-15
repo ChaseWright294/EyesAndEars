@@ -22,7 +22,7 @@ app.post('/api/signup', async (req, res) => {
 
     try {
         await pool.query(
-            'INSERT INTO tbl_users (fld_u_name, fld_u_email, fld_u_hashpass) VALUES ($1, $2, $3)',
+            'INSERT INTO tbl_users (u_name, u_email, u_hashpass) VALUES ($1, $2, $3)',
             [name, email, hashedPassword]
         );
 
@@ -39,7 +39,7 @@ app.post('/api/login', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'SELECT * FROM tbl_users WHERE fld_u_email = $1',
+            'SELECT * FROM tbl_users WHERE u_email = $1',
             [email]
         );
         console.log(result);
@@ -50,13 +50,13 @@ app.post('/api/login', async (req, res) => {
 
         const user = result.rows[0];
         console.log(user);
-        const isMatch = await bcrypt.compare(password, user.fld_u_hashpass);
+        const isMatch = await bcrypt.compare(password, user.u_hashpass);
 
         if (!isMatch) {
             return res.status(401).send({ error: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user.fld_u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.u_id_pk }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.send({ token });
     } catch (error) {
         console.error('Login error:', error);
