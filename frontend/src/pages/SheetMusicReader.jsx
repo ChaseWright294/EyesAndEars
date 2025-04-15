@@ -11,8 +11,9 @@ function SheetMusicReader() {
       <NavBar />
       {(file) ? "" : <h1>Sheet Music Reader</h1>} {/*removes the 'Sheet Music Reader' if there is a file being rendered*/}
       <MusicFileUpload setFile={setFile} />
-      <pre>{file ? "" : "No file loaded"}</pre> {/* display blank if file is loaded to give music room*/}
-      <SheetMusicRenderer musicString={file} />
+       
+      {/*display renderer if there is a file, and test if there isn't*/}
+      <pre>{file ? <SheetMusicRenderer musicString={file} /> : "No file loaded"}</pre>
     </div>
   );
 }

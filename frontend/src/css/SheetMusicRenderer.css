@@ -1,0 +1,9 @@
+.renderer{
+    width: 1200px;
+    height: 460px;
+    background-color: white;
+    overflow: scroll;
+    scrollbar-color: #f88784 white;
+    /* scrollbar-color: #ffd2d1 white; */ /*lighter color that matches the background better, but worse contrast*/
+}
+
