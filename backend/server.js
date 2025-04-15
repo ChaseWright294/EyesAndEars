@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const multer = require('multer');
+const path = require('path');
 
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -64,10 +66,6 @@ app.post('/api/login', async (req, res) => {
         res.status(500).send({ error: 'Error during login' });
     }
 });
-
-/*app.post('api/sheetmusic', token,  async (req, res) => {
-
-})*/
 
 app.get('/', (req, res) => {
     res.send('Backend is running in VS Code! Hi there!');
@@ -135,6 +133,41 @@ app.delete('/api/user-instruments', verifyToken, async(req, res) => {
     }
 })
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    },
+});
+
+const upload = multer({ storage: storage});
+
+app.post('/api/upload', upload.single("file"), verifyToken,  async (req, res) => {
+    const file = req.file;
+    const user_id = req.user.id;
+    //const { instrument_id } = req.body;
+
+    if(!file){
+        return res.status(400).json({error: "No file uploaded"});
+    }
+
+    const filePath = file.path;
+
+    await pool.query(
+        "INSERT INTO tbl_music(u_id_fk, m_title, m_filepath) VALUES ($1, $2, $3)", [user_id, file.originalname, filePath]
+    );
+});
+
+/*app.get('/api/upload', upload.single("file"), verifyToken, async(req, res) => {
+    const user_id = req.user.id;
+    const file = req.file;
+    const file_path = file.path;
+
+    const result = await pool.query("SELECT m_title, m_filepath FROM tbl_music INNER JOIN tbl_users ON u_id_pk = u_id_fk WHERE u_id_pk = $1", [user_id])
+});*/
 
 
 const PORT = process.env.PORT || 5001;
