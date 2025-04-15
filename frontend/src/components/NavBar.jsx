@@ -13,9 +13,9 @@ function NavBar() {
                     <FaHome className="nav-icon"/>
                     <span>Home</span>
                 </Link>
-                <Link to ="/audio" className="nav-item">
+                <Link to ="/sheetmusic" className="nav-item">
                     <FaMusic className="nav-icon"/>
-                    <span>Audio</span>
+                    <span>Sheet Music Reader</span>
                 </Link>
                 <Link to ="/instruments" className="nav-item">
                     <FaGuitar className="nav-icon"/>

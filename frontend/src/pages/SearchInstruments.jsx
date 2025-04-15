@@ -1,5 +1,10 @@
-import { useState, useRef } from "react";
-import "../css/SearchInstruments.css";
+import { useEffect, useState } from "react";
+import '../css/SearchInstruments.css'
+import { getUserId } from "../../../backend/auth";
+import axios from "axios";
+
+const userId = getUserId();
+import Popup from "../components/Popup";
 
 //array of instruments
 const instruments = [
@@ -20,34 +25,57 @@ const instruments = [
     { name: "Percussion", image: "percussion.png" }
 ];
 
-function SearchBar() {
+function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
-
+    const [instruments, setInstruments] = useState([]);
     const [selectedInstruments, setSelectedInstrument] = useState([]);
 
     const [showSearch, setShowSearch] = useState(false);
 
-    const searchInputRef = useState(null);
+    const searchInputRef = useRef(null);
 
     const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
 
-    const handleSelect = (instrument) => {
-        if(!selectedInstruments.some((item) => item.name === instrument.name)) {
-            setSelectedInstrument([...selectedInstruments, instrument]);
+    const handleSelect = async (instrument) => {
+        if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
+            try {
+                const token = localStorage.getItem("token");
+                await axios.post("http://localhost:5001/api/user-instruments", {
+                    instrument_id: instrument.i_id_pk
+                }, {
+                    headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument([...selectedInstruments, instrument]);
+            } catch (error) {
+                console.error("Error adding instrument: ", error);
+            }
         }
+        //fetchUserInstruments();
         setQuery("");
-        setShowSearch(false); //hides search bar after each selection
-        //alert was removed.
+        setShowSearch(false); //removes search bar after addition
     };
-    const handleRemove = (instrument) => {
-        setSelectedInstrument(selectedInstruments.filter((item) => item.name !== instrument.name));
+    const handleRemove = async (instrument) => {
+        try {
+            const token = localStorage.getItem("token");
+            console.log("Instrument to remove: ", instrument);
+            await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
+                headers: { Authorization: `Bearer ${token}`}
+            });
+            setSelectedInstrument(selectedInstruments.filter((item) => item.id !== instrument.i_id_pk));
+        } catch (error) {
+            console.error("Error removing instrument: ", error);
+        }        
     };
 
     const handleShowSearch = () => {
         setShowSearch(true);
-        //setTimeout(() => {
-            //searchInputRef.current?.focus();
-        };
+        setTimeout(() => {
+            searchInputRef.current?.focus();
+        }, 0);
+    };
+
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [clickedInstrument, setClickedInstrument] = useState("");
 
 return(
     <div className="p-4 max-w-lg mx-auto">
@@ -82,7 +110,7 @@ return(
                     onClick={() => handleSelect(instrument)}
                     className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
-                        {instrument.name}  
+                        {instrument.i_name}  
                     </div>
                 ))
             ) : (
@@ -104,16 +132,22 @@ return(
                         </button>
 
                     <img
-                        src = {`/images/${instrument.image}`}
-                        alt={instrument.name}
+                        src = {`/images/${instrument.i_image}`}
+                        alt={instrument.i_name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
                     <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
-                    
+                    <button onClick= {() => handleRemove(instrument)}
+                    className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
+                        Remove
+                    </button>
                 </div>
             ))}
-        </div>
+            </div>
     </div>
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            {clickedInstrument}
+        </Popup>
     </div>
 );
 }
