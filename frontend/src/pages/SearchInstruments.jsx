@@ -45,10 +45,9 @@ function SearchBar() {
 
     const handleShowSearch = () => {
         setShowSearch(true);
-        setTimeout(() => {
+        //setTimeout(() => {
             //searchInputRef.current?.focus();
-        }, 0);
-    };
+        };
 
 return(
     <div className="p-4 max-w-lg mx-auto">
@@ -92,10 +91,17 @@ return(
             </div>
         )}
         
-        <div className = "mt-4">
+        <div className = "mt-6">
             <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
             {selectedInstruments.map((instrument, index) => (
-                <div key = {index} className="instrument-card p-2 border rounded-lg shadow-md text-center">
+                <div key = {index} className="relative instrument-card p-2 border rounded-lg shadow-md text-center bg-white">
+                    <button
+                        onClick={() => handleRemove(instrument)}
+                        className = "absolute top-0 right-0 big-red-600 text-white rounded-bl-lg px-2 py-1 hover:bg-red-700"
+                        aria-label = {`Remove ${instrument.name}`}
+                        >
+                            x
+                        </button>
 
                     <img
                         src = {`/images/${instrument.image}`}
@@ -103,10 +109,7 @@ return(
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
                     <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
-                    <button onClick= {() => handleRemove(instrument)}
-                    className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
-                        Remove
-                    </button>
+                    
                 </div>
             ))}
         </div>
