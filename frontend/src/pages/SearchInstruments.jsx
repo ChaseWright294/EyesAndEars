@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
+import Popup from "../components/Popup";
 
 const userId = getUserId();
 
@@ -73,6 +74,9 @@ function SearchBar({ userId }) {
         }        
     };
 
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [clickedInstrument, setClickedInstrument] = useState("");
+
 return(
     <div className="p-4 max-w-lg mx-auto">
         
@@ -107,7 +111,12 @@ return(
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
                     {/* <img src = {instrument.image} alt={instrument.name}className = "instrument-image" /> */}
-                    <h3 className="instrument-name">{instrument.i_name}</h3>
+                    <button onClick={() => {
+                        setButtonPopup(true);
+                        setClickedInstrument(instrument.i_name);
+                        }}>
+                        {instrument.i_name}
+                    </button>
                     <button onClick= {() => handleRemove(instrument)}className= "remove-btn">
                         Remove
                     </button>
@@ -115,6 +124,9 @@ return(
             ))}
             </div>
     </div>
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            {clickedInstrument}
+        </Popup>
     </div>
 );
 }
