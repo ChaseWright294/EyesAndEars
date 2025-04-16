@@ -7,3 +7,24 @@
     /* scrollbar-color: #ffd2d1 white; */ /*lighter color that matches the background better, but worse contrast*/
 }
 
+.play-btn{
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.play-btn:hover{
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.gap{
+    height: 5px;
+}

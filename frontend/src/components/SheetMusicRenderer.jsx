@@ -23,7 +23,8 @@ function SheetMusicRenderer({ musicString }) {
 
     return (
         <div>
-            <button className='play-btn' onClick={onPlayButtonClick}>Play</button>
+            <button className='play-btn' onClick={onPlayButtonClick}>▶</button>
+            <div className='gap' />
             <div className='renderer'>
                 <div ref={rendererRef} style={{width: '1175px', overflowX: 'auto'}}/>
             </div>
