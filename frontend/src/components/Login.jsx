@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Signup from './Signup';
 import Home from '../pages/Home'
-//import { Link } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/login.css'
 import { FaUser, FaLock } from 'react-icons/fa';
@@ -20,8 +19,6 @@ const Login = () => {
             console.log('login successful:', response.data);
 
             localStorage.setItem('token', response.data.token);
-            //localStorage.setItem('name', response.data.name)
-            //alert('Login successful!');
             navigate('/Home')
         } catch (error) {
             console.error('Error during login:', error); 
