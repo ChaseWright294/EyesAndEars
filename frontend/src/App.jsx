@@ -12,6 +12,7 @@ import NavBar from './components/NavBar'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import UploadSheetMusic from './pages/UploadSheetMusic'
+import InstrumentSheetMusic from './pages/InstrumentSheetMusic'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/metronome"    element={<Metronome />}/>
           <Route path="/sheetmusic"   element={<SheetMusicReader />}/>
           <Route path="/upload-sheetmusic" element={<UploadSheetMusic />}/>
+          <Route path="/dropdown"      element={<InstrumentSheetMusic />}/>
         </Routes>
       </main>
     </div>
