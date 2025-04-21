@@ -1,6 +1,7 @@
 import Dropdown from "../components/dropdown";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Accordion from "../components/Accordion";
 
 function InstrumentSheetMusic() {
     const [selectedInstruments, setSelectedInstrument] = useState([]);
@@ -22,7 +23,21 @@ function InstrumentSheetMusic() {
     }, []);  
 
     return (
-    <div>
+    <div className="accordion">
+        {selectedInstruments.map((instrument, index) => (
+            <div key = {index} className="accordion">
+            <Accordion>{instrument}</Accordion>
+            </div>
+            
+            ))}
+    </div>
+  );
+}
+
+export default InstrumentSheetMusic;
+
+
+/*<div>
         <div className = "selected-instruments">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
@@ -30,8 +45,4 @@ function InstrumentSheetMusic() {
                 </div>
             ))}
             </div>
-    </div>
-  );
-}
-
-export default InstrumentSheetMusic;
+    </div> */
