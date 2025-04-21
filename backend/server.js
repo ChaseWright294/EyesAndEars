@@ -148,7 +148,7 @@ const upload = multer({ storage: storage});
 app.post('/api/upload', upload.single("file"), verifyToken,  async (req, res) => {
     const file = req.file;
     const user_id = req.user.id;
-    //const { instrument_id } = req.body;
+    const instrument_id = req.body.instrument;
 
     if(!file){
         return res.status(400).json({error: "No file uploaded"});
@@ -156,9 +156,19 @@ app.post('/api/upload', upload.single("file"), verifyToken,  async (req, res) =>
 
     const filePath = file.path;
 
-    await pool.query(
-        "INSERT INTO tbl_music(u_id_fk, m_title, m_filepath) VALUES ($1, $2, $3)", [user_id, file.originalname, filePath]
-    );
+    try {
+        await pool.query(
+        "INSERT INTO tbl_music(u_id_fk, i_id_fk, m_title, m_filepath) VALUES ($1, $2, $3, $4)", [user_id, instrument_id, file.originalname, filePath]);
+    } catch (error) {
+        res.status(500).json({ error: "Error uploading"});
+        console.error("Database insert error:", error);
+    }
+    
+    console.log("Upload received:");
+    console.log("User ID:", user_id);
+    console.log("Instrument ID:", instrument_id);
+    console.log("File:", file);
+
 });
 
 /*app.get('/api/upload', upload.single("file"), verifyToken, async(req, res) => {
