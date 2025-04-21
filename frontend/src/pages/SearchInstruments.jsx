@@ -113,7 +113,7 @@ return(
                     {/* <img src = {instrument.image} alt={instrument.name}className = "instrument-image" /> */}
                     <button onClick={() => {
                         setButtonPopup(true);
-                        setClickedInstrument(instrument.i_name);
+                        setClickedInstrument(instrument);
                         }}>
                         {instrument.i_name}
                     </button>
@@ -124,8 +124,8 @@ return(
             ))}
             </div>
     </div>
-        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            {clickedInstrument}
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup} instrument={clickedInstrument.i_id_pk}>
+            {clickedInstrument.i_name}
         </Popup>
     </div>
 );
