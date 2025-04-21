@@ -8,31 +8,52 @@ function SheetMusicRenderer({ musicString }) {
     //auto scroll functionality
     const scrollSpeed = 1; //pixels per frame -update with fetch from metronome!
     const scrollInterval = 16; //roughly 60 frames per second
-    let scrollIntervalID = null;
-    
-    const onPlayButtonClick = () => {
+    let scrollIntervalID = useRef(null);
+    const [scrolling, setScrolling] = useState(false);
+
+    //start the autscroll
+    const startScroll = () =>
+    {
+
         const vexflowDiv = rendererRef.current?.querySelector('.vexml-root.vexml-scroll-container');
-        if(vexflowDiv)
+        if(!vexflowDiv)
         {
-            if(scrollIntervalID) //clear the interval if it is already running
+            return;
+        }
+
+        scrollIntervalID.current = setInterval(() => {
+            vexflowDiv.scrollLeft += scrollSpeed;
+
+            //stop scrolling if end reached
+            if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
             {
                 clearInterval(scrollIntervalID);
             }
+        }, scrollInterval);
 
-            scrollIntervalID = setInterval(() => {
-                vexflowDiv.scrollLeft += scrollSpeed;
+        setScrolling(true);
+    }
 
-                if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
-                {
-                    clearInterval(scrollIntervalID);
-                }
-            }, scrollInterval);
+    //stop the autoscroll
+    const stopScroll = () => {
+        if(scrollIntervalID.current) 
+        {
+            clearInterval(scrollIntervalID.current);
+            scrollIntervalID.current = null;
+        }
+        setScrolling(false);
+    }
+
+    const scrollToggle = () => {
+        if(scrolling)
+        {
+            stopScroll();
         }
         else
         {
-            alert("Error finding .vexml-root.vexml-scroll-container for autoscroll");
+            startScroll();
         }
-    }
+    };
 
     useEffect(() => {
         if (rendererRef.current && musicString) {
@@ -48,7 +69,9 @@ function SheetMusicRenderer({ musicString }) {
 
     return (
         <div>
-            <button className='play-btn' onClick={onPlayButtonClick}>▶</button>
+            <button id='play-btn' className='play-btn' onClick={scrollToggle}>
+                {scrolling ? '❚❚' : '▶'}
+            </button>
             <div className='gap' />
             <div className='outer-div'>
                 <div className='cursor' />
