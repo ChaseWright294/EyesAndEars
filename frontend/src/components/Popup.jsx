@@ -1,6 +1,7 @@
 import '../css/Popup.css';
 import { Link } from "react-router-dom";
 
+
 function Popup(props) {
     return(props.trigger) ? (
         <div className="popup" >
@@ -12,7 +13,7 @@ function Popup(props) {
                         
                         <Link to ="/upload-sheetmusic" className='save-nav'>upload sheet music</Link>
 
-                        {/*<Link to ="/dropdown" className='save-nav'>saved sheet music</Link>*/}
+                        <Link to ="/dropdown" className='save-nav'>saved sheet music</Link>
                     </div>
                
             </div>
