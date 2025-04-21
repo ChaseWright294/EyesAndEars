@@ -3,10 +3,35 @@ import { useEffect, useRef, useState } from 'react';
 import '../css/SheetMusicRenderer.css'
 
 function SheetMusicRenderer({ musicString }) {
-    const rendererRef = useRef(null);
+    const rendererRef = useRef(null); //renderer for sheet music
+
+    //auto scroll functionality
+    const scrollSpeed = 1; //pixels per frame -update with fetch from metronome!
+    const scrollInterval = 16; //roughly 60 frames per second
+    let scrollIntervalID = null;
     
     const onPlayButtonClick = () => {
-        alert("Boop!");
+        const vexflowDiv = rendererRef.current?.querySelector('.vexml-root.vexml-scroll-container');
+        if(vexflowDiv)
+        {
+            if(scrollIntervalID) //clear the interval if it is already running
+            {
+                clearInterval(scrollIntervalID);
+            }
+
+            scrollIntervalID = setInterval(() => {
+                vexflowDiv.scrollLeft += scrollSpeed;
+
+                if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
+                {
+                    clearInterval(scrollIntervalID);
+                }
+            }, scrollInterval);
+        }
+        else
+        {
+            alert("Error finding .vexml-root.vexml-scroll-container for autoscroll");
+        }
     }
 
     useEffect(() => {
@@ -28,7 +53,7 @@ function SheetMusicRenderer({ musicString }) {
             <div className='outer-div'>
                 <div className='cursor' />
                 <div className='renderer'>
-                    <div className='score' ref={rendererRef} />
+                    <div id='score-div' className='score' ref={rendererRef} />
                 </div>
             </div>
         </div>
