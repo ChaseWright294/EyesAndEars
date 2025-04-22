@@ -171,13 +171,45 @@ app.post('/api/upload', upload.single("file"), verifyToken,  async (req, res) =>
 
 });
 
-/*app.get('/api/upload', upload.single("file"), verifyToken, async(req, res) => {
+app.get('/api/upload', verifyToken, async(req, res) => {
     const user_id = req.user.id;
+
+    try {
+        const result = await pool.query("SELECT m_title, m_filepath, i_id_fk FROM tbl_music INNER JOIN tbl_users ON u_id_pk = u_id_fk WHERE u_id_pk = $1", [user_id]);
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error fetching user sheet music", error);
+    }
     const file = req.file;
     const file_path = file.path;
+});
 
-    const result = await pool.query("SELECT m_title, m_filepath FROM tbl_music INNER JOIN tbl_users ON u_id_pk = u_id_fk WHERE u_id_pk = $1", [user_id])
-});*/
+const audioStor = multer.diskStorage({
+    destination: './audioRecs',
+    filename: (req, file, cb) => {
+        const filename = `${Date.now()}-${file.originalname}`;
+        cb(null, filename);
+    }
+});
+
+const audioUpload = multer({ storage: audioStor});
+
+app.post('/api/audio', verifyToken, audioUpload.single('audio'), async(req, res) => {
+    const file = req.file;
+    const user_id = req.user.id;
+    const name = req.body.name;
+
+    if(!file){
+        return res.status(400).json({ error: 'No audio uploaded' });
+    }
+
+    try {
+        const result = await pool.query('INSERT INTO tbl_audio(u_id_fk, a_title, a_filepath) VALUES ($1, $2, $3)', [user_id, name, file.path]);
+        res.status(200).json({ message: 'Audio uploaded successfully', path: file.path });
+    } catch (error) {
+        console.error('DB insert error: ', error);
+    }
+})
 
 
 const PORT = process.env.PORT || 5001;
