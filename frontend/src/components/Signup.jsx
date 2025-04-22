@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    //const [mobile_number, setMobileNumber] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = async (e) => {
