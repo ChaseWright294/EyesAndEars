@@ -110,36 +110,36 @@ useEffect(() => {
 
 return(
     <div className="p-4 max-w-lg mx-auto">
-        {/*"Add Instrument" icon*/
+        
             <button
                 onClick={handleShowSearch}
                 aria-label=" Add Instrument" //for screen reader support!
                 className="w-32 h-32 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
-                >
+            >
                     <span className="text-5xl text-black font-bold">+</span>
                     <span className="text-base text-black font-semibold mt-1"> Add Instrument</span>
                 </button>    
-        }
+        
         
         {showSearch && (
         <input
-            //ref={searchInputRef}
+            ref={searchInputRef} //comment this out?
             type="text"
             placeholder="Search for your instrument"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full p-2 border rounded-lg shadow-md"
         />
-        )}
+    )}
         
         {query && (
         <div className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
                 filteredInstruments.map((instrument, index) => (
                     <div 
-                    key={index} 
-                    onClick={() => handleSelect(instrument)}
-                    className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
+                        key={index} 
+                        onClick={() => handleSelect(instrument)}
+                        className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
                     >
                         {instrument.i_name}  
                     </div>
@@ -147,8 +147,8 @@ return(
             ) : (
                 <div className="p-2 text-grey-500">No instruments found</div>
             )}
-            </div>
-        )}
+        </div>
+    )}
         
         <div className = "mt-6">
             <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
@@ -158,24 +158,27 @@ return(
                         onClick={() => handleRemove(instrument)}
                         className = "absolute top-0 right-0 big-red-600 text-white rounded-bl-lg px-2 py-1 hover:bg-red-700"
                         aria-label = {`Remove ${instrument.name}`}
-                        >
-                            x
-                        </button>
+                    >
+                        x
+                    </button>
 
                     <img
-                        src = {instrument.http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}{instrument.i_name}}
+                        src = {imstrument.i_image} //for database
                         alt={instrument.i_name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
                     <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
-                    <button onClick= {() => handleRemove(instrument)}
-                    className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
+                    <button
+                        onClick= {() => handleRemove(instrument)}
+                        className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2"
+                    >
                         Remove
                     </button>
                 </div>
             ))}
-            </div>
+        </div>
     </div>
+    
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
             {clickedInstrument}
         </Popup>
