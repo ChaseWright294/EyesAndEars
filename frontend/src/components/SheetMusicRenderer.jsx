@@ -11,6 +11,22 @@ function SheetMusicRenderer({ musicString }) {
     let scrollIntervalID = useRef(null);
     const [scrolling, setScrolling] = useState(false);
     let cursorProgress = 100;
+    const [cursorVisibility, setCursorVisibility] = useState(true);
+
+    const cursorToggle = () => {
+        const cursorDiv = document.getElementById('cursor');
+        
+        if(cursorVisibility)
+            {
+                setCursorVisibility(false);
+                cursorDiv.style.backgroundColor = "#00000000"
+            }
+            else
+            {
+                setCursorVisibility(true);
+                cursorDiv.style.backgroundColor = "#ff0000aa"
+            }
+    };
 
     //reset the renderer
     const resetRenderer = () => {
@@ -23,7 +39,7 @@ function SheetMusicRenderer({ musicString }) {
         //reset scroll
         const vexflowDiv = rendererRef.current?.querySelector('.vexml-root.vexml-scroll-container');
         vexflowDiv.scrollLeft = 0;
-    }
+    };
 
     //start the autscroll
     const startScroll = () =>
@@ -41,6 +57,12 @@ function SheetMusicRenderer({ musicString }) {
             //stop scrolling if end reached
             if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
             {
+                if(!cursorVisibility) //if cursor not visible, don't continue
+                {
+                    stopScroll();
+                    return;
+                }
+
                 cursorProgress += scrollSpeed; //move cursor instead of scroll bar
                 document.getElementById('cursor').style.marginLeft = `${cursorProgress}px`;
 
@@ -54,7 +76,7 @@ function SheetMusicRenderer({ musicString }) {
         }, scrollInterval);
 
         setScrolling(true);
-    }
+    };
 
     //stop the autoscroll
     const stopScroll = () => {
@@ -64,7 +86,7 @@ function SheetMusicRenderer({ musicString }) {
             scrollIntervalID.current = null;
         }
         setScrolling(false);
-    }
+    };
 
     const scrollToggle = () => {
         if(scrolling)
@@ -92,10 +114,11 @@ function SheetMusicRenderer({ musicString }) {
     return (
         <div>
             <div className='btn-holder'>
+                <button className='other-btn' onClick={cursorToggle}>Cursor</button>
                 <button id='play-btn' className='play-btn' onClick={scrollToggle}>
                     {scrolling ? '❚❚' : '▶'}
                 </button>
-            <button className='reset-btn' onClick={resetRenderer}>Reset</button>
+            <button className='other-btn' onClick={resetRenderer}>Reset</button>
             </div>
 
             <div className='outer-div'>

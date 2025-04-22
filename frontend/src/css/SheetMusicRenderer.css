@@ -50,9 +50,10 @@
     border-radius: 100%;
 }
 
-.reset-btn{
+.other-btn{
     display: inline-block;
     margin-left: 10px;
+    margin-right: 10px;
     display: inline-block;
     background-color: #f88784;
     border-color: black;
@@ -61,9 +62,10 @@
     vertical-align: 20%;
 }
 
-.reset-btn:hover{
+.other-btn:hover{
     display: inline-block;
     margin-left: 10px;
+    margin-right: 10px;
     display: inline-block;
     background-color: #fd5b56;
     border-color: black;
