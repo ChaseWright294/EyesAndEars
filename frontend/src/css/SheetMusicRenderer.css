@@ -50,9 +50,33 @@
     border-radius: 100%;
 }
 
+.cursor-btn{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.cursor-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
 .reset-btn{
     display: inline-block;
     margin-left: 10px;
+    margin-right: 10px;
     display: inline-block;
     background-color: #f88784;
     border-color: black;
