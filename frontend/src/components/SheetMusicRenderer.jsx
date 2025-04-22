@@ -46,7 +46,7 @@ function SheetMusicRenderer({ musicString }) {
 
                 if(cursorProgress >= 1200)
                 {
-                    resetRenderer();
+                    stopScroll();
                     return;
                 }
 
