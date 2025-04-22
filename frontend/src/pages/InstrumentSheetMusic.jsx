@@ -1,4 +1,3 @@
-import Dropdown from "../components/dropdown";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Accordion from "../components/Accordion";
@@ -35,14 +34,3 @@ function InstrumentSheetMusic() {
 }
 
 export default InstrumentSheetMusic;
-
-
-/*<div>
-        <div className = "selected-instruments">
-            {selectedInstruments.map((instrument, index) => (
-                <div key = {index} className="instrument-card">
-                    <Dropdown>{instrument}</Dropdown>
-                </div>
-            ))}
-            </div>
-    </div> */
