@@ -1,9 +1,79 @@
+.outer-div{
+    position: relative;
+}
+
 .renderer{
     width: 1200px;
-    height: 460px;
+    height: auto;
     background-color: white;
-    overflow: scroll;
+    overflow-x: hidden;
     scrollbar-color: #f88784 white;
     /* scrollbar-color: #ffd2d1 white; */ /*lighter color that matches the background better, but worse contrast*/
 }
 
+.score{
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cursor{
+    height: 70%;
+    width: 5px;
+    background-color: #ff0000aa;
+    position: absolute;
+    z-index: 9;
+    margin-left: 100px;
+    margin-top: 6%;
+}
+
+.btn-holder{
+    margin-bottom: 5px;
+}
+
+.play-btn{
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.play-btn:hover{
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.reset-btn{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.vexflow-container{
+    display: flex;
+    justify-content: left;
+    float: left;
+}
