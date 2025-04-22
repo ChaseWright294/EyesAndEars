@@ -78,7 +78,7 @@ function SheetMusicRenderer({ musicString }) {
                 cursorProgress += scrollSpeed; //move cursor instead of scroll bar
                 document.getElementById('cursor').style.marginLeft = `${cursorProgress}px`;
 
-                if(cursorProgress >= 1200)
+                if(cursorProgress >= 1200) //once cursor reaches the end, stop
                 {
                     stopScroll();
                     return;
@@ -120,6 +120,10 @@ function SheetMusicRenderer({ musicString }) {
             rendererRef.current.innerHTML = ''; //clear old score
             try { //error checker, because Windows and Mac have different types of musicxml files it turns out
                 vexml.renderMusicXML(musicString, rendererRef.current); //render new score
+
+                //reset the cursor
+                cursorProgress = 100;
+                document.getElementById('cursor').style.marginLeft = '100px';
             } catch(error) {
                 if(cursorVisibility)
                 {
