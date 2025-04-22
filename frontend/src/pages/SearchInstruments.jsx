@@ -3,7 +3,7 @@ import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
 import Popup from "../components/Popup";
-//const userId = getUserId();
+
 
 const userId = getUserId();
 
