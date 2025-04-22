@@ -26,7 +26,7 @@ function App() {
           <Route path="/instruments"  element={<Instruments />}/>
           <Route path="/tuner"        element={<Tuner />}/>
           <Route path="/metronome"    element={<Metronome />}/>
-          <Route path="/sheetmusic"   element={<SheetMusicReader />}/>
+          <Route path="/sheetmusic/uploads/:musicId"   element={<SheetMusicReader />}/>
           <Route path="/upload-sheetmusic" element={<UploadSheetMusic />}/>
           <Route path="/dropdown"      element={<InstrumentSheetMusic />}/>
         </Routes>

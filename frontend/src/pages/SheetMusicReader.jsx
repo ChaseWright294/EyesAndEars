@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MusicFileUpload from "../components/MusicFileUpload";
 import SheetMusicRenderer from "../components/SheetMusicRenderer";
 import NavBar from "../components/NavBar";
-import {useLocation} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import AudioRecorder from "../components/AudioRecorder";
+import axios from "axios";
 
 function SheetMusicReader() {
-  const location = useLocation();
-  const { musicpath } = location.state; //accessing the state from the location object 
+  let musicID = useParams();
+  console.log("musicID: ", musicID);
+  //let musicpath = ; //accessing the filepath from the music object
+  /*
+  useEffect(() => {
+    axios.get(`http://localhost:5001/api/upload/${musicID}`).then(response => {
+      console.log(response.data)
+  }).catch((error) => {
+    console.error("Error fetching music file: ", error)
+  })
+}, []);*/
 
-  const [file,setFile] = useState(musicpath); //string loaded from file retrieved from MusicFileUpload
-
+  const [file,setFile] = useState(musicID); //string loaded from file retrieved from MusicFileUpload
+  console.log("File: ", file);
   return(
     <div>
       <NavBar />
