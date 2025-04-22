@@ -110,7 +110,7 @@ return(
             <div className = "selected-instruments">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
-                    {/* <img src = {instrument.image} alt={instrument.name}className = "instrument-image" /> */}
+                    { <img src = {instrument.i_image} alt={instrument.i_name}className = "instrument-image" /> }
                     <button onClick={() => {
                         setButtonPopup(true);
                         setClickedInstrument(instrument);
