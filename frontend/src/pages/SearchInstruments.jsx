@@ -6,7 +6,6 @@ import axios from "axios";
 const userId = getUserId();
 import Popup from "../components/Popup";
 
-//array of instruments
 /*const instrumentItems = [
     { name: "Piano", image: "piano.png" },
     { name: "Flute", image: "Flute4.png" },
@@ -25,6 +24,20 @@ import Popup from "../components/Popup";
     { name: "Percussion", image: "percussion.png" }
 ];*/
 
+//fetch instruments from database 
+useEffect(() => {
+    const fetchInstruments = async() => {
+        try{
+            const response = await axios.get();
+            setInstruments(response.data);
+        }
+        catch(error){
+            console.error("Unable to fetch instruments from database", error);
+        }
+    };
+    fetchInstruments();
+}, []);
+
 function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
     const [instruments, setInstruments] = useState([]);
@@ -34,7 +47,7 @@ function SearchBar({ userId }) {
 
     const searchInputRef = useRef(null);
 
-    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
+    const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
 
     const handleSelect = async (instrument) => {
         if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
@@ -54,6 +67,7 @@ function SearchBar({ userId }) {
         setQuery("");
         setShowSearch(false); //removes search bar after addition
     };
+    //removes an imstrument from the user's selected list
     const handleRemove = async (instrument) => {
         try {
             const token = localStorage.getItem("token");
@@ -132,7 +146,7 @@ return(
                         </button>
 
                     <img
-                        src = {`/images/${instrument.i_image}`}
+                        src = {instrument.http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}{instrument.i_name}}
                         alt={instrument.i_name}
                         className = "instrument-image w-full h-32 object-cover rounded-md"
                     />
