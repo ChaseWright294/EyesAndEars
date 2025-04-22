@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Accordion (props){
   const [isActive, setIsActive] = useState(false);
-  const [musicpath, setMusicPath] = useState("");
+  let musicpath;
     
   const [selectedMusic, setSelectedMusic] = useState([]);
   //const instrument_Id = props.children.i_id_fk;           ?param=${instrument_Id}
@@ -35,8 +35,8 @@ function Accordion (props){
       {isActive && <div className="accordion-content">
         {selectedMusic.map((music, index) => (
         <div className="music-card" key={index}>
-            {setMusicPath(music.m_path)}
-            <Link to ={{pathname: "/sheetmusic", state: {musicpath} }}>
+            
+            <Link to = {`/sheetmusic/${music.m_filepath}`} className='save-nav'>
                 {music.m_title}
             </Link>
         </div>

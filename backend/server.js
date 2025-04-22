@@ -187,6 +187,18 @@ app.get('/api/upload', verifyToken, async(req, res) => {
     //const filePath = file.path;
 });
 
+/*app.get('/api/upload/[object Object]', verifyToken, async(req, res) => {
+    const musicID = req.params.musicID;
+    console.log("musicID: ", musicID);
+    try {
+        const result = await pool.query("SELECT m_filepath FROM tbl_music WHERE u_id_pk = $1", [musicID]);
+        res.json(result.rows);
+        console.log("Fetched user music: ", result.rows); 
+    } catch (error) {
+        console.error("Error fetching usersheet music: ", error);
+    }
+});
+*/
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
