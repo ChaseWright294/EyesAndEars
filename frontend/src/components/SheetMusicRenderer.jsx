@@ -2,6 +2,8 @@ import * as vexml from '@stringsync/vexml';
 import { useEffect, useRef, useState } from 'react';
 import '../css/SheetMusicRenderer.css'
 
+let cursorProgress = 100; //global so positioning is saved if scroll has run out
+
 function SheetMusicRenderer({ musicString }) {
     const rendererRef = useRef(null); //renderer for sheet music
 
@@ -10,7 +12,8 @@ function SheetMusicRenderer({ musicString }) {
     const scrollInterval = 16; //roughly 60 frames per second
     let scrollIntervalID = useRef(null);
     const [scrolling, setScrolling] = useState(false);
-    let cursorProgress = 100;
+
+    //cursor visibility
     const [cursorVisibility, setCursorVisibility] = useState(true);
 
     const cursorToggle = () => {
