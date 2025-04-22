@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
@@ -7,7 +7,7 @@ const userId = getUserId();
 import Popup from "../components/Popup";
 
 //array of instruments
-const instruments = [
+/*const instrumentItems = [
     { name: "Piano", image: "piano.png" },
     { name: "Flute", image: "Flute4.png" },
     { name: "Piccolo", image: "Piccolo3.png" },
@@ -23,7 +23,7 @@ const instruments = [
     { name: "Bassoon", image: "bassoon.png" },
     { name: "Violin", image: "violin.png" },
     { name: "Percussion", image: "percussion.png" }
-];
+];*/
 
 function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
