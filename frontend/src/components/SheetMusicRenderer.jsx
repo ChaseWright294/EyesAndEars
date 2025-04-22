@@ -69,6 +69,12 @@ function SheetMusicRenderer({ musicString }) {
             //stop scrolling if end reached
             if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
             {
+                if(!cursorVisibility) //if cursor is invisible, don't bother moving it
+                {
+                    stopScroll();
+                    return;
+                }
+
                 cursorProgress += scrollSpeed; //move cursor instead of scroll bar
                 document.getElementById('cursor').style.marginLeft = `${cursorProgress}px`;
 
