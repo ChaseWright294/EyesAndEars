@@ -4,7 +4,7 @@
 
 .renderer{
     width: 1200px;
-    height: auto;
+    max-height: auto;
     background-color: white;
     overflow-x: hidden;
     scrollbar-color: #f88784 white;
@@ -27,7 +27,7 @@
 }
 
 .btn-holder{
-    margin-bottom: 5px;
+    margin-bottom: -20px;
 }
 
 .play-btn{
@@ -100,4 +100,15 @@
     display: flex;
     justify-content: left;
     float: left;
+}
+
+.tempo-slider{
+    display: inline-block;
+    vertical-align: -20%;
+}
+
+.tempo-speed{
+    display: inline-block;
+    margin-left: 8px;
+    font-size: x-large;
 }

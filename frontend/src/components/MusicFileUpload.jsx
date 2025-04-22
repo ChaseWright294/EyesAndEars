@@ -52,8 +52,8 @@ const MusicFileUpload = ({ setFile }) => {
       {/* <button onClick={handleFileUpload}>Upload</button> */}
       {/* ^ button didn't serve a purpose at the time so I removed
             it. Feel free to put it back if you want it there! -Chase */}
-      {selectedFile && <p>Selected file: {selectedFile.name}</p>}
-      {uploadStatus && <p>{uploadStatus}</p>}
+      {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+      {uploadStatus && <p>{uploadStatus}</p>} */}
     </div>
   );
 };

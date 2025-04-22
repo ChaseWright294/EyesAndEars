@@ -8,7 +8,7 @@ function SheetMusicRenderer({ musicString }) {
     const rendererRef = useRef(null); //renderer for sheet music
 
     //auto scroll functionality
-    const scrollSpeed = 1; //pixels per frame -update with fetch from metronome!
+    const [scrollSpeed, setScrollSpeed] = useState(1); //pixels per frame -update with fetch from metronome!
     const scrollInterval = 16; //roughly 60 frames per second
     let scrollIntervalID = useRef(null);
     const [scrolling, setScrolling] = useState(false);
@@ -142,6 +142,23 @@ function SheetMusicRenderer({ musicString }) {
                     {scrolling ? '❚❚' : '▶'}
                 </button>
             <button className='reset-btn' onClick={resetRenderer}>Reset</button>
+            </div>
+
+            <div>
+                <input
+                    id="tempo-slider" className="tempo-slider" type="range"
+                    value={scrollSpeed}
+                    min="1" max="5" step="0.25" list="tickmarks"
+                    onInput={(e) => setScrollSpeed(parseFloat(e.target.value))}
+                />
+                <datalist id="tickmarks"> {/*data set to put tick marks on the slider*/}
+                    <option value="1" />
+                    <option value="2" />
+                    <option value="3" />
+                    <option value="4" />
+                    <option value="5" />
+                </datalist>
+                <p className="tempo-speed">Scroll Speed: <output id="value">{scrollSpeed}</output></p>
             </div>
 
             <div className='outer-div'>
