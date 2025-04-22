@@ -111,7 +111,7 @@ app.post('/api/user-instruments', verifyToken, async (req, res) => {
 app.get('/api/user-instruments', verifyToken, async(req, res) => {
     const user_id = req.user.id;
     try {
-        const result = await pool.query("SELECT i_name, i_id_pk FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
+        const result = await pool.query("SELECT i_name, i_id_pk, i_image FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
         res.json(result.rows);
         console.log("Fetched user instruments: ", result.rows);  
     } catch (error) {

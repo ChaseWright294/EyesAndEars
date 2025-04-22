@@ -1,0 +1,55 @@
+.audio-wrapper {
+    width: 100%;
+    padding: 40px 80px; 
+    box-sizing: border-box;
+  }
+  
+  .saved-audio-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .instrument-container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;  
+    margin-top: 40px;
+    justify-content: center;
+  }
+  
+  .instrument-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 220px;
+    width: 100%;
+  }
+  
+  .instrument-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .instrument-card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: white;
+  }
+  
+  .instrument-card-label {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 12px 0;
+    color: #333;
+  }
+  
