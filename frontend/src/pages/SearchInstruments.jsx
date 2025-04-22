@@ -149,9 +149,9 @@ return(
             )}
         </div>
     )}
-        
+
         <div className = "mt-6">
-            <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+            <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 overflow-y-auto max-h-96 p-2">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="relative instrument-card p-2 border rounded-lg shadow-md text-center bg-white">
                     <button
@@ -178,7 +178,7 @@ return(
             ))}
         </div>
     </div>
-    
+
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
             {clickedInstrument}
         </Popup>
