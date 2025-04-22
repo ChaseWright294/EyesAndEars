@@ -6,7 +6,7 @@ const Metronome = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [beatType, setBeatType] = useState("quarter");
     const intervalRef = useRef(null);
-    const tickRef = useRef(null);
+    const metronomeRef = useRef(null);
 
     const beatIntervals = {
         quarter: 1,
@@ -16,11 +16,12 @@ const Metronome = () => {
         swung: 2 //has to be handled differently
         //if time add more options
     };
+
     const playClick = () => {
-        if(tickRef.current){
-            tickRef.current.classList.remove("active");
-            void tickRef.current.offsetWidth; //trigger
-            tickRef.current.classList.add("active");
+        if(metronomeRef.current){
+            metronomeRef.current.classList.remove("active");
+            void metronomeRef.current.offsetWidth; //trigger
+            metronomeRef.current.classList.add("active");
         }
         const audio = new Audio(/*whatever sound I find for the ticking sound*/);
         audio.play();
@@ -31,7 +32,7 @@ const Metronome = () => {
         let count = 0;
         clearInterval(intervalRef.current);
 
-        if (beatType == "swung"){
+        if (beatType === "swung"){
             intervalRef.current = setInterval(() => {
                 playClick();
                 setTimeout(() => {
@@ -57,23 +58,41 @@ const Metronome = () => {
     }, [isPlaying, bpm, beatType]);
 
     return(
-        <div className= "p-4 max-w-md mx-auto text-center">
-            <div
-                ref = {ticketRef}
-                className = "w-4 h-4 mx-auto md-4 rounded-full bg-blue-500 transition-all duration-75"
-        ></div>
+        <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md">
+            <div className = "mb-4">
+                <img
+                    ref = {metronomeRef}
+                    scr = {metronomeImage}
+                    alt = "Metronome"
+                    className = "w-24 h-24 mx-auto transition-transform duratino-75 ease-in-out"
+                />
+            </div>
 
+            <label htmlFor = "bpmRange" className = "block text-lg font-medium text-gray-700">
+                Tempo: {bpm} BPM
+            </label>
         <input
             //this is the typical metronome range
+            id = "bpmRange"
             type = "range"
             min = "40"
             max = "240"
             value = {bpm}
             onChange = {(e) => setBpm(Number(e.target.value))}
             className = "w-full md-2"
+            aria-label = "BPM range"
             />
-            <p>{bpm} BPM</p>
+            <input
+                type = "number"
+                min = "40"
+                max = "240"
+                value = {bpm}
+                onChange = {(e) => setBpm(Number(e.target.value))}
+                className = "border px-2 py-1 rounded w-24 md-4"
+                aria-label = "BPM input"
+            />
 
+            <label htmlFor = "beatType" className = "block text-sm font-semibold mb-1">Beat Type</label>
             <select
                 value = {beatType}
                 onChange = {(e) => setBeatType(e.target.value)}
