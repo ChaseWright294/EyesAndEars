@@ -28,7 +28,7 @@ function Home() {
       {
         title: "Saved Audio",
         description: "View your saved audio for each instrument",
-        link: "/audio",
+        link: "/saved-audio",
         image: sheetmusicImg //change to audio image once one is found
       }
     ]

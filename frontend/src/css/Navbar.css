@@ -1,18 +1,19 @@
-.navbar{
+.navbar {
+  width: 100%;                    
+  display: flex;
+  justify-content: center;        
+  border-bottom: 2px solid black;
+  padding: 20px 0;
+}
+
+.navbar-left {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 0;
-  border-bottom: 2px solid black;
+  gap: 60px;
+  max-width: 1000px;             
   width: 100%;
 }
 
-.navbar-left{
-  display: flex;
-  gap: 60px;
-  justify-content: space-evenly;
-  max-width: 1000px;
-  width: 100%;
-}
 
 .nav-item{
   display: flex;
