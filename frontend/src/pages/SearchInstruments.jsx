@@ -2,8 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
-
-const userId = getUserId();
 import Popup from "../components/Popup";
 
 /*const instrumentItems = [
