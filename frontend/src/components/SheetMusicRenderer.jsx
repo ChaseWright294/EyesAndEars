@@ -10,6 +10,20 @@ function SheetMusicRenderer({ musicString }) {
     const scrollInterval = 16; //roughly 60 frames per second
     let scrollIntervalID = useRef(null);
     const [scrolling, setScrolling] = useState(false);
+    let cursorProgress = 100;
+
+    //reset the renderer
+    const resetRenderer = () => {
+        stopScroll();
+
+        //reset the cursor
+        cursorProgress = 100;
+        document.getElementById('cursor').style.marginLeft = '100px';
+
+        //reset scroll
+        const vexflowDiv = rendererRef.current?.querySelector('.vexml-root.vexml-scroll-container');
+        vexflowDiv.scrollLeft = 0;
+    }
 
     //start the autscroll
     const startScroll = () =>
@@ -27,7 +41,15 @@ function SheetMusicRenderer({ musicString }) {
             //stop scrolling if end reached
             if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
             {
-                clearInterval(scrollIntervalID);
+                cursorProgress += scrollSpeed; //move cursor instead of scroll bar
+                document.getElementById('cursor').style.marginLeft = `${cursorProgress}px`;
+
+                if(cursorProgress >= 1200)
+                {
+                    resetRenderer();
+                    return;
+                }
+
             }
         }, scrollInterval);
 
@@ -69,12 +91,15 @@ function SheetMusicRenderer({ musicString }) {
 
     return (
         <div>
-            <button id='play-btn' className='play-btn' onClick={scrollToggle}>
-                {scrolling ? '❚❚' : '▶'}
-            </button>
-            <div className='gap' />
+            <div className='btn-holder'>
+                <button id='play-btn' className='play-btn' onClick={scrollToggle}>
+                    {scrolling ? '❚❚' : '▶'}
+                </button>
+            <button className='reset-btn' onClick={resetRenderer}>Reset</button>
+            </div>
+
             <div className='outer-div'>
-                <div className='cursor' />
+                <div id='cursor' className='cursor' />
                 <div className='renderer'>
                     <div id='score-div' className='score' ref={rendererRef} />
                 </div>

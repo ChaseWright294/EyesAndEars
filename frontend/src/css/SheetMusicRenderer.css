@@ -26,7 +26,12 @@
     margin-top: 6%;
 }
 
+.btn-holder{
+    margin-bottom: 5px;
+}
+
 .play-btn{
+    display: inline-block;
     background-color: #f88784;
     border-color: black;
     border-width: 3px;
@@ -36,6 +41,7 @@
 }
 
 .play-btn:hover{
+    display: inline-block;
     background-color: #fd5b56;
     border-color: black;
     border-width: 3px;
@@ -44,14 +50,30 @@
     border-radius: 100%;
 }
 
-.gap{
-    height: 5px;
+.reset-btn{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
 }
 
 .vexflow-container{
     display: flex;
     justify-content: left;
-    width: 300%;
-    min-width: 300%;
     float: left;
 }
