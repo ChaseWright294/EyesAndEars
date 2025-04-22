@@ -3,6 +3,7 @@ import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
 import Popup from "../components/Popup";
+//const userId = getUserId();
 
 /*const instrumentItems = [
     { name: "Piano", image: "piano.png" },
@@ -22,28 +23,44 @@ import Popup from "../components/Popup";
     { name: "Percussion", image: "percussion.png" }
 ];*/
 
-//fetch instruments from database 
-useEffect(() => {
-    const fetchInstruments = async() => {
-        try{
-            const response = await axios.get();
-            setInstruments(response.data);
-        }
-        catch(error){
-            console.error("Unable to fetch instruments from database", error);
-        }
-    };
-    fetchInstruments();
-}, []);
 
 function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
     const [instruments, setInstruments] = useState([]);
     const [selectedInstruments, setSelectedInstrument] = useState([]);
-
     const [showSearch, setShowSearch] = useState(false);
+    const [buttonPopup, setButtonPopup] = useState(false);
+    const [clickedInstrument, setClickedInstrument] = useState("");
 
     const searchInputRef = useRef(null);
+
+    //fetch instruments from database 
+useEffect(() => {
+    const fetchInstruments = async() => {
+        try{
+            const res = await axios.get("http://localhost:5001/api/user-instruments");
+            setInstruments(res.data);
+        }
+        catch(err){
+            console.error("Unable to fetch instruments from database", err);
+        }
+    };
+    
+    const fetchUserInstruments = async () => {
+        try{
+            const token = localStorage.getItem("token");
+            const res = await axios.get("http://localhost:5001/api/user-instruments", {
+                headers: {Authorization: `Bearer ${token}`}
+            });
+            setSelectedInstrument(res.data);
+        }
+        catch(err){
+            console.error("Failed to fetch the instrument: ", err);
+        }
+        };
+    fetchInstruments();
+    fetchUserInstruments();
+}, []);
 
     const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
 
@@ -56,20 +73,23 @@ function SearchBar({ userId }) {
                 }, {
                     headers: { Authorization: `Bearer ${token}`}
                 });
+
                 setSelectedInstrument([...selectedInstruments, instrument]);
+                //fetchUserInstruments();
+                setQuery("");
+                setShowSearch(false); //removes search bar after addition
             } catch (error) {
                 console.error("Error adding instrument: ", error);
             }
         }
-        //fetchUserInstruments();
-        setQuery("");
-        setShowSearch(false); //removes search bar after addition
+        
     };
+
     //removes an imstrument from the user's selected list
     const handleRemove = async (instrument) => {
         try {
             const token = localStorage.getItem("token");
-            console.log("Instrument to remove: ", instrument);
+            //console.log("Instrument to remove: ", instrument);
             await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
                 headers: { Authorization: `Bearer ${token}`}
             });
@@ -86,8 +106,7 @@ function SearchBar({ userId }) {
         }, 0);
     };
 
-    const [buttonPopup, setButtonPopup] = useState(false);
-    const [clickedInstrument, setClickedInstrument] = useState("");
+
 
 return(
     <div className="p-4 max-w-lg mx-auto">
