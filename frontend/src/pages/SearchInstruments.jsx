@@ -121,7 +121,7 @@ return(
         
         <div className = "mt-6">
             <h2 className = "text-xl font-bold mb-4">My Instruments</h2>
-            <div className = "selected-instruments">
+            <div className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
                     { <img src = {instrument.i_image} alt={instrument.i_name}className = "instrument-image" /> }
