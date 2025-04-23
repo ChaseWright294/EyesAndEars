@@ -144,20 +144,13 @@ function SheetMusicRenderer({ musicString }) {
             <button className='reset-btn' onClick={resetRenderer}>Reset</button>
             </div>
 
-            <div>
+            <div className='tempo-div'>
                 <input
                     id="tempo-slider" className="tempo-slider" type="range"
                     value={scrollSpeed}
-                    min="1" max="5" step="0.25" list="tickmarks"
+                    min="1" max="5" step="1"
                     onInput={(e) => setScrollSpeed(parseFloat(e.target.value))}
                 />
-                <datalist id="tickmarks"> {/*data set to put tick marks on the slider*/}
-                    <option value="1" />
-                    <option value="2" />
-                    <option value="3" />
-                    <option value="4" />
-                    <option value="5" />
-                </datalist>
                 <p className="tempo-speed">Scroll Speed: <output id="value">{scrollSpeed}</output></p>
             </div>
 
