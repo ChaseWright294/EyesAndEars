@@ -119,8 +119,8 @@ return(
             </ul>
         )}
         
-        <div className = "mt-4">
-            <h2 className = "text-xl font-bold mb-2">Selected Instruments:</h2>
+        <div className = "mt-6">
+            <h2 className = "text-xl font-bold mb-4">My Instruments</h2>
             <div className = "selected-instruments">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
@@ -132,7 +132,7 @@ return(
                         {instrument.i_name}
                     </button>
                     <button onClick= {() => handleRemove(instrument)}className= "remove-btn">
-                        Remove
+                        X
                     </button>
                 </div>
             ))}
