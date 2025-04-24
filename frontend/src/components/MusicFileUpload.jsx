@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const MusicFileUpload = ({ setFile }) => {
+const MusicFileUpload = ({ setFile, instrument }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
 
@@ -27,6 +27,9 @@ const MusicFileUpload = ({ setFile }) => {
 
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("instrument", instrument);
+
+  console.log("Uploading file with instrument id: ", instrument);
 
   try{  
     const token = localStorage.getItem("token");

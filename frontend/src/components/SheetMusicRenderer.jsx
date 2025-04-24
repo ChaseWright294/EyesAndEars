@@ -48,7 +48,7 @@ function SheetMusicRenderer({ musicString }) {
         //reset scroll
         const vexflowDiv = rendererRef.current?.querySelector('.vexml-root.vexml-scroll-container');
         vexflowDiv.scrollLeft = 0;
-    }
+    };
 
     //start the autscroll
     const startScroll = () =>
@@ -70,6 +70,7 @@ function SheetMusicRenderer({ musicString }) {
             if(vexflowDiv.scrollLeft + vexflowDiv.clientWidth >= vexflowDiv.scrollWidth)
             {
                 if(!cursorVisibility) //if cursor is invisible, don't bother moving it
+
                 {
                     stopScroll();
                     return;
@@ -88,7 +89,7 @@ function SheetMusicRenderer({ musicString }) {
         }, scrollInterval);
 
         setScrolling(true);
-    }
+    };
 
     //stop the autoscroll
     const stopScroll = () => {
@@ -102,7 +103,7 @@ function SheetMusicRenderer({ musicString }) {
             scrollIntervalID.current = null;
         }
         setScrolling(false);
-    }
+    };
 
     const scrollToggle = () => {
         if(scrolling)
@@ -141,7 +142,7 @@ function SheetMusicRenderer({ musicString }) {
                 <button id='play-btn' className='play-btn' onClick={scrollToggle}>
                     {scrolling ? '❚❚' : '▶'}
                 </button>
-            <button className='reset-btn' onClick={resetRenderer}>Reset</button>
+            <button className='other-btn' onClick={resetRenderer}>Reset</button>
             </div>
 
             <div className='tempo-div'>

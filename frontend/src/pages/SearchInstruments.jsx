@@ -2,22 +2,47 @@ import { useEffect, useState } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
-
-const userId = getUserId();
 import Popup from "../components/Popup";
 
-//array of instruments
+const userId = getUserId();
 
 function SearchBar({ userId }) {
     const [query, setQuery] = useState("");
     const [instruments, setInstruments] = useState([]);
     const [selectedInstruments, setSelectedInstrument] = useState([]);
 
-    const [showSearch, setShowSearch] = useState(false);
+    //fetch all instruments from the backend
+    useEffect(() => {
+        const fetchInstruments = async () => {
+            try {
+                const response = await axios.get('http://localhost:5001/api/instruments');
+                console.log("Fetched Instruments: ", response.data);
+                setInstruments(response.data);
+            } catch (error) {
+                console.error("Error fetching instruments: ", error);
+            }
+        };
+        fetchInstruments();
+    }, []);
 
-    const searchInputRef = useRef(null);
+    //fetch user's selected instruments
+    useEffect(() => {
+        const fetchUserInstruments = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await axios.get("http://localhost:5001/api/user-instruments", {headers: { Authorization: `Bearer ${token}`}
+                });
+                setSelectedInstrument(response.data);             
+                console.log("Fetched User instruments: ", response.data);
+            } catch(error){
+                console.error("Error fetching user instruments: ", error);
+            }
+        };
+        fetchUserInstruments();
+        
+    }, []);  
 
-    const filteredInstruments = instruments.filter((instrument) => instrument.name.toLowerCase().includes(query.toLowerCase()));
+    const filteredInstruments = instruments.filter((instrument) => instrument.i_name.toLowerCase().includes(query.toLowerCase()));
 
     const handleSelect = async (instrument) => {
         if(!selectedInstruments.some((item) => item.id === instrument.i_id_pk)) {
@@ -35,7 +60,6 @@ function SearchBar({ userId }) {
         }
         //fetchUserInstruments();
         setQuery("");
-        setShowSearch(false); //removes search bar after addition
     };
     const handleRemove = async (instrument) => {
         try {
@@ -50,86 +74,58 @@ function SearchBar({ userId }) {
         }        
     };
 
-    const handleShowSearch = () => {
-        setShowSearch(true);
-        setTimeout(() => {
-            searchInputRef.current?.focus();
-        }, 0);
-    };
-
     const [buttonPopup, setButtonPopup] = useState(false);
     const [clickedInstrument, setClickedInstrument] = useState("");
 
 return(
     <div className="p-4 max-w-lg mx-auto">
-        {/*"Add Instrument" icon*/
-            <button
-                onClick={handleShowSearch}
-                aria-label=" Add Instrument" //for screen reader support!
-                className="w-32 h-32 flex flex-col items-center justify-center border-2 border-gray-700 rounded-2xl shadow-lg bg-white hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-500"
-                >
-                    <span className="text-5xl text-black font-bold">+</span>
-                    <span className="text-base text-black font-semibold mt-1"> Add Instrument</span>
-                </button>    
-        }
         
-        {showSearch && (
         <input
-            //ref={searchInputRef}
             type="text"
             placeholder="Search for your instrument"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full p-2 border rounded-lg shadow-md"
         />
-        )}
-        
         {query && (
-        <div className="mt-2 bg-white shadow-md rounded-lg">
+        <ul className="mt-2 bg-white shadow-md rounded-lg">
             {filteredInstruments.length > 0 ? (
                 filteredInstruments.map((instrument, index) => (
-                    <div 
+                    <li 
                     key={index} 
                     onClick={() => handleSelect(instrument)}
-                    className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200 text-left"
+                    className="p-2 border-b last:border-b-0 cursor-pointer hover:bg-gray-200"
                     >
                         {instrument.i_name}  
-                    </div>
+                    </li>
                 ))
             ) : (
-                <div className="p-2 text-grey-500">No instruments found</div>
+                <li className="p-2 text-grey-500">No instruments found</li>
             )}
-            </div>
+            </ul>
         )}
         
-        <div className = "mt-6">
-            <div className = "selected-instruments grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+        <div className = "mt-4">
+            <h2 className = "text-xl font-bold mb-2">Selected Instruments:</h2>
+            <div className = "selected-instruments">
             {selectedInstruments.map((instrument, index) => (
-                <div key = {index} className="relative instrument-card p-2 border rounded-lg shadow-md text-center bg-white">
-                    <button
-                        onClick={() => handleRemove(instrument)}
-                        className = "absolute top-0 right-0 big-red-600 text-white rounded-bl-lg px-2 py-1 hover:bg-red-700"
-                        aria-label = {`Remove ${instrument.name}`}
-                        >
-                            x
-                        </button>
-
-                    <img
-                        src = {`/images/${instrument.i_image}`}
-                        alt={instrument.i_name}
-                        className = "instrument-image w-full h-32 object-cover rounded-md"
-                    />
-                    <h3 className="instrument-name text-lg font semibold mt-2">{instrument.name}</h3>
-                    <button onClick= {() => handleRemove(instrument)}
-                    className= "remove-btn bg-pink-500 text-white px-2 py-1 rounded mt-2">
+                <div key = {index} className="instrument-card">
+                    { <img src = {instrument.i_image} alt={instrument.i_name}className = "instrument-image" /> }
+                    <button onClick={() => {
+                        setButtonPopup(true);
+                        setClickedInstrument(instrument);
+                        }}>
+                        {instrument.i_name}
+                    </button>
+                    <button onClick= {() => handleRemove(instrument)}className= "remove-btn">
                         Remove
                     </button>
                 </div>
             ))}
             </div>
     </div>
-        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            {clickedInstrument}
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup} instrument={clickedInstrument.i_id_pk}>
+            {clickedInstrument.i_name}
         </Popup>
     </div>
 );
