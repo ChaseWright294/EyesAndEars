@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.active {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-in-out;
+}

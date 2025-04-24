@@ -23,28 +23,28 @@ const Metronome = () => {
             void metronomeRef.current.offsetWidth; //trigger
             metronomeRef.current.classList.add("active");
         }
-        const audio = new Audio(/*whatever sound I find for the ticking sound*/);
+        const audio = new Audio("/tick.wav");
         audio.play();
     };
 
     const startMetronome = () => {
-        const subdivision = beatIntervals[beatType];
-        let count = 0;
         clearInterval(intervalRef.current);
 
         if (beatType === "swung"){
             intervalRef.current = setInterval(() => {
                 playClick();
-                setTimeout(() => {
-                    playClick();
-                }, (60000 / bpm) * 0.66); //had to look up swing beat
+                setTimeout(() => 
+                playClick(),
+                 (60000 / bpm) * 2/3); //had to look up swing beat
             }, 60000 / bpm);
-        } else{
+            return;
+        } 
+            const subdivision = beatIntervals[beatType] || 1;
             intervalRef.current = setInterval(() => {
                 playClick();
                 count = (count + 1) % subdivision;
             }, (60000 / bpm) / subdivision);
-        }
+        
     };
 
     useEffect(() => {
@@ -58,13 +58,15 @@ const Metronome = () => {
     }, [isPlaying, bpm, beatType]);
 
     return(
-        <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md">
+        <div>
+            <NavBar />
+        <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md border border-black text-2xl">
             <div className = "mb-4">
                 <img
                     ref = {metronomeRef}
-                    scr = {metronomeImage}
+                    src = {metronomeImage}
                     alt = "Metronome"
-                    className = "w-24 h-24 mx-auto transition-transform duratino-75 ease-in-out"
+                    className = "w-24 h-24 mx-auto transition-transform duration-75 ease-in-out"
                 />
             </div>
 
@@ -88,7 +90,7 @@ const Metronome = () => {
                 max = "240"
                 value = {bpm}
                 onChange = {(e) => setBpm(Number(e.target.value))}
-                className = "border px-2 py-1 rounded w-24 md-4"
+                className = "w-full my-2 border-2 border-black text-xl"
                 aria-label = "BPM input"
             />
 
@@ -96,7 +98,7 @@ const Metronome = () => {
             <select
                 value = {beatType}
                 onChange = {(e) => setBeatType(e.target.value)}
-                className = "border p-1 rounded mt-2"
+                className = "border-2 border-black p-2 rounded text-xl my-2"
                 >
                     <option value = "quarter"> Quarter Notes</option>
                     <option value = "eighth"> Eighth Notes</option>
@@ -108,11 +110,13 @@ const Metronome = () => {
 
                 <button
                     onClick ={() => setIsPlaying(!isPlaying)}
-                    className = "mt-4 px-4 py-2 bg-pink-600 text-white rounded"
+                    className = "mt-4 px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
                     >
                         {isPlaying ? "Stop" : "Play"}
                     </button>
                     </div>
+                </div>
+
     );
 };
 
