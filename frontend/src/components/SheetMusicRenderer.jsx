@@ -142,7 +142,7 @@ function SheetMusicRenderer({ musicString }) {
                 <button id='play-btn' className='play-btn' onClick={scrollToggle}>
                     {scrolling ? '❚❚' : '▶'}
                 </button>
-            <button className='other-btn' onClick={resetRenderer}>Reset</button>
+            <button className='reset-btn' onClick={resetRenderer}>Reset</button>
             </div>
 
             <div className='tempo-div'>
