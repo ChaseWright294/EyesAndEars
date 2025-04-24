@@ -9,6 +9,19 @@ import axios from "axios";
 function SheetMusicReader() {
   let musicID = useParams();
   console.log("musicID: ", musicID);
+  const file = `/uploads/${musicID.musicId}`; //accessing the filepath from the music object
+  //C:\Users\crazy\OneDrive\Documents\GitHub\EyesAndEars\..\..\..\SheetMusicReader.jsx
+    //if (file && file.name.endsWith(".musicxml")) {
+      const reader = new FileReader();
+
+      //convert the file to a string
+      reader.onload = (e) => {
+        setFile(e.target.result);
+      }
+      console.log("File: ", file);
+
+      //reader.readAsText(file);
+      //}
   //let musicpath = ; //accessing the filepath from the music object
   /*
   useEffect(() => {
@@ -19,8 +32,8 @@ function SheetMusicReader() {
   })
 }, []);*/
 
-  const [file,setFile] = useState(musicID); //string loaded from file retrieved from MusicFileUpload
-  console.log("File: ", file);
+  //const [file,setFile] = useState(musicID); //string loaded from file retrieved from MusicFileUpload
+  //console.log("File: ", file);
   return(
     <div>
       <NavBar />

@@ -121,6 +121,7 @@ function SheetMusicRenderer({ musicString }) {
         if (rendererRef.current && musicString) {
             rendererRef.current.innerHTML = ''; //clear old score
             try { //error checker, because Windows and Mac have different types of musicxml files it turns out
+                console.log("RendererRef 2: ", rendererRef.current);
                 vexml.renderMusicXML(musicString, rendererRef.current); //render new score
 
                 //reset the cursor
