@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import '../css/SearchInstruments.css'
 import { getUserId } from "../../../backend/auth";
 import axios from "axios";
 import Popup from "../components/Popup";
+
 
 const userId = getUserId();
 
@@ -53,7 +54,11 @@ function SearchBar({ userId }) {
                 }, {
                     headers: { Authorization: `Bearer ${token}`}
                 });
+
                 setSelectedInstrument([...selectedInstruments, instrument]);
+                //fetchUserInstruments();
+                setQuery("");
+                setShowSearch(false); //removes search bar after addition
             } catch (error) {
                 console.error("Error adding instrument: ", error);
             }
@@ -61,10 +66,12 @@ function SearchBar({ userId }) {
         //fetchUserInstruments();
         setQuery("");
     };
+
+    //removes an imstrument from the user's selected list
     const handleRemove = async (instrument) => {
         try {
             const token = localStorage.getItem("token");
-            console.log("Instrument to remove: ", instrument);
+            //console.log("Instrument to remove: ", instrument);
             await axios.delete(`http://localhost:5001/api/user-instruments?instrument_id=${instrument.i_id_pk}`, {
                 headers: { Authorization: `Bearer ${token}`}
             });
@@ -72,6 +79,13 @@ function SearchBar({ userId }) {
         } catch (error) {
             console.error("Error removing instrument: ", error);
         }        
+    };
+
+    const handleShowSearch = () => {
+        setShowSearch(true);
+        setTimeout(() => {
+            searchInputRef.current?.focus();
+        }, 0);
     };
 
     const [buttonPopup, setButtonPopup] = useState(false);
@@ -105,9 +119,9 @@ return(
             </ul>
         )}
         
-        <div className = "mt-4">
-            <h2 className = "text-xl font-bold mb-2">Selected Instruments:</h2>
-            <div className = "selected-instruments">
+        <div className = "mt-6">
+            <h2 className = "text-xl font-bold mb-4">My Instruments</h2>
+            <div className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {selectedInstruments.map((instrument, index) => (
                 <div key = {index} className="instrument-card">
                     { <img src = {instrument.i_image} alt={instrument.i_name}className = "instrument-image" /> }
@@ -118,11 +132,11 @@ return(
                         {instrument.i_name}
                     </button>
                     <button onClick= {() => handleRemove(instrument)}className= "remove-btn">
-                        Remove
+                        X
                     </button>
                 </div>
             ))}
-            </div>
+        </div>
     </div>
         <Popup trigger={buttonPopup} setTrigger={setButtonPopup} instrument={clickedInstrument.i_id_pk}>
             {clickedInstrument.i_name}
