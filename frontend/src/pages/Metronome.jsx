@@ -1,6 +1,8 @@
 import NavBar from "../components/NavBar"; //keep or remove?
 import React, { useState, useEffect, useRef } from "react";
 
+
+
 const Metronome = () => {
     const [bpm, setBpm] = useState(100);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -61,6 +63,7 @@ const Metronome = () => {
         <div>
             <NavBar />
         <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md border border-black text-2xl">
+            <h1>Metronome</h1>
             <div className = "mb-4">
                 <img
                     ref = {metronomeRef}
@@ -114,10 +117,11 @@ const Metronome = () => {
                     >
                         {isPlaying ? "Stop" : "Play"}
                     </button>
-                    </div>
                 </div>
+            </div>
 
     );
 };
+console.log("Metronome is working");
 
 export default Metronome;
