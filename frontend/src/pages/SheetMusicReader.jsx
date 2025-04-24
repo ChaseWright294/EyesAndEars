@@ -6,6 +6,7 @@ import {useLocation} from "react-router-dom";
 import AudioRecorder from "../components/AudioRecorder";
 import Accordion from "../components/Accordion";
 
+
 function SheetMusicReader() {
   const location = useLocation();
   const musicpath = location.state?.musicpath; //accessing the state from the location object 
@@ -32,12 +33,13 @@ function SheetMusicReader() {
   return(
     <div>
       <NavBar />
-      <AudioRecorder />
-      {(file) ? "" : <h1>Sheet Music Reader</h1>} {/*removes the 'Sheet Music Reader' if there is a file being rendered*/}
-      {/*<MusicFileUpload setFile={props.m_filepath} />*/}
-       
-      {/*display renderer if there is a file, and test if there isn't*/}
-      <pre>{file ? <SheetMusicRenderer musicString={file} /> : "No file loaded"}</pre>
+      <div className="sheet-music-reader">
+          {musicContent ? (
+            <SheetMusicRenderer musicString={musicContent} />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
     </div>
   );
 }
