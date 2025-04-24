@@ -64,7 +64,6 @@ const Metronome = () => {
         <div>
             <NavBar />
         <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md border border-black text-2xl">
-            <h1>Metronome</h1>
             <div className = "mb-4">
                 <img
                     ref = {metronomeRef}
@@ -75,7 +74,7 @@ const Metronome = () => {
             </div>
 
             <label htmlFor = "bpmRange" className = "block text-lg font-medium text-gray-700">
-                Tempo: {bpm} BPM
+                Tempo
             </label>
         <input
             //this is the typical metronome range
@@ -109,7 +108,7 @@ const Metronome = () => {
                     <option value = "triplets"> Triplets Notes</option>
                     <option value = "sixteenth"> Sixteenth Notes</option>
                     <option value = "swung"> Swung Notes</option>
-                    <option value = "none"> None Notes</option>
+                    
                 </select>
 
                 <button
@@ -123,5 +122,5 @@ const Metronome = () => {
 
     );
 };
-//console.log("Metronome is working");
+
 export default Metronome;
