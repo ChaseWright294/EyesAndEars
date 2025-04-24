@@ -16,9 +16,6 @@ ul {
     color: black;
 }
 
-.selected-instruments {
-    gap: 10px;
-}
 
 .instrument-card {
     width: 100%;
