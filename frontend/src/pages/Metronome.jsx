@@ -9,6 +9,7 @@ const Metronome = () => {
     const [beatType, setBeatType] = useState("quarter");
     const intervalRef = useRef(null);
     const metronomeRef = useRef(null);
+    const metronomeImage = "/metronomeImage.png";
 
     const beatIntervals = {
         quarter: 1,
@@ -122,6 +123,5 @@ const Metronome = () => {
 
     );
 };
-console.log("Metronome is working");
-
+//console.log("Metronome is working");
 export default Metronome;
