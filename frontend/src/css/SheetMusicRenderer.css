@@ -4,7 +4,7 @@
 
 .renderer{
     width: 1200px;
-    height: auto;
+    max-height: auto;
     background-color: white;
     overflow-x: hidden;
     scrollbar-color: #f88784 white;
@@ -27,7 +27,7 @@
 }
 
 .btn-holder{
-    margin-bottom: 5px;
+    margin-bottom: -20px;
 }
 
 .play-btn{
@@ -50,7 +50,7 @@
     border-radius: 100%;
 }
 
-.other-btn{
+.cursor-btn{
     display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
@@ -62,7 +62,30 @@
     vertical-align: 20%;
 }
 
-.other-btn:hover{
+.cursor-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn:hover{
     display: inline-block;
     margin-left: 10px;
     margin-right: 10px;
@@ -78,4 +101,40 @@
     display: flex;
     justify-content: left;
     float: left;
+}
+
+.tempo-slider{
+    display: inline-block;
+    vertical-align: -7%;
+}
+
+.tempo-speed{
+    display: inline-block;
+    margin-left: 8px;
+    font-size: x-large;
+}
+
+/* Styles the slider for Chrome */
+#tempo-slider{
+    appearance: none;
+    width: 200px;
+    margin-top: 10px;
+    background: transparent;
+}
+
+#tempo-slider::-webkit-slider-runnable-track{
+    background: #f88784;
+    height: 6px;
+    border-radius: 5px;
+}
+
+#tempo-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #fd5b56;
+    margin-top: -8px;
+    cursor: pointer;
 }
