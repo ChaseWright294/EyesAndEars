@@ -13,7 +13,7 @@ function NavBar() {
                     <FaHome className="nav-icon"/>
                     <span>Home</span>
                 </Link>
-                <Link to ="/sheetmusic" className="nav-item">
+                <Link to ="/dropdown" className="nav-item">
                     <FaMusic className="nav-icon"/>
                     <span>Sheet Music Reader</span>
                 </Link>

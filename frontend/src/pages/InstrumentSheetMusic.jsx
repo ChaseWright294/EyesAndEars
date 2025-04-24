@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Accordion from "../components/Accordion";
+import NavBar from "../components/NavBar";
 
 function InstrumentSheetMusic() {
     const [selectedInstruments, setSelectedInstrument] = useState([]);
@@ -22,6 +23,8 @@ function InstrumentSheetMusic() {
     }, []);  
 
     return (
+    <div className="instrument-sheet-music">
+        <NavBar></NavBar>
     <div className="accordion">
         {selectedInstruments.map((instrument, index) => (
             <div key = {index} className="accordion">
@@ -29,6 +32,7 @@ function InstrumentSheetMusic() {
             </div>
             
             ))}
+    </div>
     </div>
   );
 }
