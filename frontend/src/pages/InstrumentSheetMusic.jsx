@@ -27,10 +27,8 @@ function InstrumentSheetMusic() {
         <NavBar></NavBar>
     <div className="accordion">
         {selectedInstruments.map((instrument, index) => (
-            <div key = {index} className="accordion">
-            <Accordion>{instrument}</Accordion>
-            </div>
-            
+            /*<div key = {index} className="accordion">*/
+            <Accordion key={index} instrument={instrument}/>
             ))}
     </div>
     </div>
