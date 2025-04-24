@@ -5,6 +5,7 @@ import NavBar from "../components/NavBar";
 import {useLocation} from "react-router-dom";
 import Accordion from "../components/Accordion";
 
+
 function SheetMusicReader() {
   const location = useLocation();
   const musicpath = location.state?.musicpath; //accessing the state from the location object 
@@ -31,7 +32,13 @@ function SheetMusicReader() {
   return(
     <div>
       <NavBar />
-      <Link to = "/dropdown"></Link>
+      <div className="sheet-music-reader">
+          {musicContent ? (
+            <SheetMusicRenderer musicString={musicContent} />
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
     </div>
   );
 }
