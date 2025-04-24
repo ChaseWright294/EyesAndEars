@@ -40,7 +40,7 @@ function Accordion (props){
         <div>{isActive ? '-' : '+'}</div>
       </div>
       {isActive && (
-        <div className="accordion.content">
+        <div className="accordion-content">
             {selectedMusic.map((music, index) => {
                 console.log("file path for music:", music);
                 
