@@ -120,14 +120,4 @@ const Metronome = () => {
     );
 };
 
-
-/*function Metronome() {
-    return(
-        <div>
-            <NavBar />
-            <p>this is a page for metronome</p>
-        </div>
-    )
-}*/
-
-export default Metronome
+export default Metronome;
