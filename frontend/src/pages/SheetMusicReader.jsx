@@ -1,46 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, Link } from "react";
 import MusicFileUpload from "../components/MusicFileUpload";
 import SheetMusicRenderer from "../components/SheetMusicRenderer";
 import NavBar from "../components/NavBar";
-import {useParams} from "react-router-dom";
-import axios from "axios";
+import {useLocation} from "react-router-dom";
+import Accordion from "../components/Accordion";
 
 function SheetMusicReader() {
-  let musicID = useParams();
-  console.log("musicID: ", musicID);
-  const file = `/uploads/${musicID.musicId}`; //accessing the filepath from the music object
-  //C:\Users\crazy\OneDrive\Documents\GitHub\EyesAndEars\..\..\..\SheetMusicReader.jsx
-    //if (file && file.name.endsWith(".musicxml")) {
-      const reader = new FileReader();
+  const location = useLocation();
+  const musicpath = location.state?.musicpath; //accessing the state from the location object 
+  console.log("Music path received:", musicpath);
+  const [musicContent, setMusicContent] = useState(null);
 
-      //convert the file to a string
-      reader.onload = (e) => {
-        setFile(e.target.result);
-      }
-      console.log("File: ", file);
+  //const [file,setFile] = useState(musicpath); //string loaded from file retrieved from MusicFileUpload
 
-      //reader.readAsText(file);
-      //}
-  //let musicpath = ; //accessing the filepath from the music object
-  /*
   useEffect(() => {
-    axios.get(`http://localhost:5001/api/upload/${musicID}`).then(response => {
-      console.log(response.data)
-  }).catch((error) => {
-    console.error("Error fetching music file: ", error)
-  })
-}, []);*/
+    const fetchMusicFile = async () => {
+      try {
+        const response = await fetch(`http://localhost:5001/${musicpath}`);
+        const text = await response.text();
+        setMusicContent(text);
+        console.log("fetched instruments: ", response);
+      } catch (error) {
+        console.error("Error loading music file:", error);
+      }
+    };
 
-  //const [file,setFile] = useState(musicID); //string loaded from file retrieved from MusicFileUpload
-  //console.log("File: ", file);
+    if (musicpath) fetchMusicFile();
+  }, [musicpath]);
+
   return(
     <div>
       <NavBar />
-      {(file) ? "" : <h1>Sheet Music Reader</h1>} {/*removes the 'Sheet Music Reader' if there is a file being rendered*/}
-      {/*<MusicFileUpload setFile={props.m_filepath} />*/}
-       
-      {/*display renderer if there is a file, and test if there isn't*/}
-      <pre>{file ? <SheetMusicRenderer musicString={file} /> : "No file loaded"}</pre>
+      <Link to = "/dropdown"></Link>
     </div>
   );
 }

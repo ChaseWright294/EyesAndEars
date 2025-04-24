@@ -171,7 +171,7 @@ app.post('/api/upload', upload.single("file"), verifyToken,  async (req, res) =>
 
 });
 
-app.get('/api/upload', verifyToken, async(req, res) => {
+/*app.get('/api/upload', verifyToken, async(req, res) => {
     const user_id = req.user.id;
     //const instrument_id = req.params;
     
@@ -184,6 +184,22 @@ app.get('/api/upload', verifyToken, async(req, res) => {
     }
 
     const file = req.file;
+    //const filePath = file.path;
+});*/
+
+app.get('/api/instrumentMusic/:id', verifyToken, async(req, res) => {
+    const user_id = req.user.id;
+    const instrument_id = req.params.id;
+    
+    try {
+    const result = await pool.query("SELECT m_title, m_filepath FROM tbl_music WHERE u_id_fk = $1 AND i_id_fk = $2", [user_id, instrument_id]);
+    res.json(result.rows);
+    console.log("Fetched user music: ", result.rows); 
+    }catch (error) {
+        console.error("Error fetching usersheet music: ", error);
+    }
+
+    //const file = req.file;
     //const filePath = file.path;
 });
 
