@@ -12,6 +12,8 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import UploadSheetMusic from './pages/UploadSheetMusic'
 import InstrumentSheetMusic from './pages/InstrumentSheetMusic'
+import Blank from './';
+
 
 function App() {
   return (
