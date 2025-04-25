@@ -30,7 +30,7 @@ const Login = () => {
         <div className="wrapper">
             <div className="class-container">
                 <div className="logo-container">
-                    <img src="/EyesAndEarsLogo.PNG" alt="App Logo" />
+                    <img src="/EyesAndEarsLogo.png" alt="App Logo" />
                 </div>
 
                 <div className="form-container">
