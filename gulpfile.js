@@ -12,7 +12,7 @@ function lint(cb) {
 }
 
 function test(cb) {
-    // Testing task here
+    
     console.log('Running tests...');
     cb();
 }
@@ -29,4 +29,7 @@ function defaultTask(cb) {
     cb();
   }
   
-  exports.default = defaultTask
+  exports.default = defaultTask;
+  exports.lint = lint;
+  exports.test = test;
+  exports.build = build;
