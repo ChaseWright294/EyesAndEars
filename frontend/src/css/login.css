@@ -1,10 +1,55 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.class-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(242, 242, 242, 0.5); 
+    padding: 40px;
+    border-radius: 30px;
+    width: 1200px;
+    height: 500px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding-right: 30px;
+    gap: 0;
+    border: none;
+    backdrop-filter: blur(8px);
+}
+
+.logo-container {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 30px;
+    border-right: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.logo-container img {
+    max-width:600px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.form-container {
+    flex: 0.2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 body {
     background: url('./src/assets/background.jpg');
-    
-    position: relative;
     background-size: cover;
-    
-     
+    background-position: center;    
 }
 
 .login-form{
@@ -30,7 +75,7 @@ body {
 }
 
 .input-box input{
-    width: 100%;
+    width: 80%;
     height: 100%;
     background: white;
     border: none;
@@ -50,14 +95,14 @@ body {
 
 .input-box .icon{
     position: absolute;
-    right: 5px;
+    right: 60px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
 }
 
 .login-form button{
-    width: 100%;
+    width: 50%;
     height: 45px;
     background: rgb(236, 221, 230);
     border: none;
@@ -70,4 +115,8 @@ body {
     font-size: 20px;
     padding: 0 0 0 0;
     margin-top: 10px;
+}
+
+.input-box{
+    position: relative;
 }
