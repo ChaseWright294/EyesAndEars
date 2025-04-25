@@ -3,7 +3,7 @@ const eslint = require('gulp-eslint');
 
 // Lint JavaScript files
 function lint() {
-  return src('src/**/*.js') // Adjust the path to your JS files
+  return src('frontend/src/**/*.js') // Adjust the path to your JS files
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
