@@ -27,6 +27,13 @@ const Login = () => {
     };
 
     return (
+        <div className="wrapper">
+            <div className="class-container">
+                <div className="logo-container">
+                    <img src="/EyesAndEarsLogo.PNG" alt="App Logo" />
+                </div>
+
+                <div className="form-container">
       <div className="login-form">
         <form onSubmit={handleSubmit}>
             <h1>Login</h1>
@@ -40,9 +47,15 @@ const Login = () => {
             </div>
             <button type="submit">Login</button>
         </form>
-        <Link to="/Signup">
-            <button>Don't have an account? Signup</button>
-        </Link>
+        
+        <p style={{ textAlign: 'center', marginTop: '15px', fontSize: '28px' }}>
+         Don't have an account? <Link to="/Signup" style={{ fontWeight: 'bold', color: 'black' }}>Signup</Link>
+        </p>
+
+       
+        </div>
+        </div>
+      </div>
       </div>
     );
 };

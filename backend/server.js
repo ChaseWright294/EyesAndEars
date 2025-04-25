@@ -185,6 +185,8 @@ app.get('/api/upload', verifyToken, async(req, res) => {
     const file_path = file.path;
 });
 
+
+
 const audioStor = multer.diskStorage({
     destination: './audioRecs',
     filename: (req, file, cb) => {
@@ -211,6 +213,28 @@ app.post('/api/audio', verifyToken, audioUpload.single('audio'), async(req, res)
         console.error('DB insert error: ', error);
     }
 })
+
+app.get('/api/audio', verifyToken, async (req, res) => {
+    const user_id = req.user.id;
+    const instrument_id = req.query.instrument_id;
+
+    if (!instrument_id) {
+        return res.status(400).json({ error: "instrument_id is required" });
+    }
+
+    try {
+        const result = await pool.query(
+            "SELECT a_title, a_filepath FROM tbl_audio WHERE u_id_fk = $1 AND i_id_fk = $2",
+            [user_id, instrument_id]
+        );
+        res.json(result.rows);
+    } catch (error) {
+        console.error("Error fetching audio files:", error);
+        res.status(500).json({ error: "Error fetching audio files" });
+    }
+});
+
+app.use('/audioRecs', express.static(path.join(__dirname, 'audioRecs')));
 
 
 const PORT = process.env.PORT || 5001;
