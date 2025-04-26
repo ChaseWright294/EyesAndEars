@@ -74,7 +74,6 @@ const Metronome = () => {
             </div>
 
             <label htmlFor = "bpmRange" className = "block text-lg font-medium text-gray-700">
-                Tempo
             </label>
         <input
             //this is the typical metronome range
@@ -97,7 +96,8 @@ const Metronome = () => {
                 aria-label = "BPM input"
             />
 
-            <label htmlFor = "beatType" className = "block text-sm font-semibold mb-1">Beat Type</label>
+            <label htmlFor = "beatType" className = "block text-sm font-semibold mb-1">
+            </label>
             <select
                 value = {beatType}
                 onChange = {(e) => setBeatType(e.target.value)}
@@ -115,7 +115,7 @@ const Metronome = () => {
                     onClick ={() => setIsPlaying(!isPlaying)}
                     className = "mt-4 px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
                     >
-                        {isPlaying ? "Stop" : "Play"}
+                        {isPlaying ? "❚❚ Pause" : "▶ Play"}
                     </button>
                 </div>
             </div>
