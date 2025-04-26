@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../css/AudioRecorder.css'
 const AudioRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -66,7 +67,7 @@ const AudioRecorder = () => {
 
   return (
     <div>
-      <button onClick={handleRecord}>
+      <button className='upload-btn' onClick={handleRecord}>
         {isRecording ? 'Stop Recording' : 'Start Recording'}
       </button>
     </div>

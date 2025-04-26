@@ -1,0 +1,17 @@
+.upload-btn{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+}
+
+.upload-btn:hover{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+}
