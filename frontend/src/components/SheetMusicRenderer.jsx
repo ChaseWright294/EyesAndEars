@@ -8,7 +8,8 @@ function SheetMusicRenderer({ musicString }) {
     const rendererRef = useRef(null); //renderer for sheet music
 
     //auto scroll functionality
-    const [scrollSpeed, setScrollSpeed] = useState(1); //pixels per frame -update with fetch from metronome!
+    const [bpm, setBpm] = useState(120);
+    const scrollSpeed = (40 * bpm) / 3600; //pixels per frame
     const scrollInterval = 16; //roughly 60 frames per second
     let scrollIntervalID = useRef(null);
     const [scrolling, setScrolling] = useState(false);
@@ -148,11 +149,21 @@ function SheetMusicRenderer({ musicString }) {
             <div className='tempo-div'>
                 <input
                     id="tempo-slider" className="tempo-slider" type="range"
-                    value={scrollSpeed}
-                    min="1" max="5" step="1"
-                    onInput={(e) => setScrollSpeed(parseFloat(e.target.value))}
+                    value={bpm}
+                    min="40" max="240" step="1" defaultValue="120"
+                    onInput={(e) => setBpm(parseFloat(e.target.value))}
                 />
-                <p className="tempo-speed">Scroll Speed: <output id="value">{scrollSpeed}</output></p>
+                <p className="tempo-speed">BPM:
+                    <input
+                        type = "number"
+                        min = "40"
+                        max = "240"
+                        value = {bpm}
+                        onChange = {(e) => setBpm(Number(e.target.value))}
+                        className = "w-full my-2 border-2 border-black text-xl"
+                        aria-label = "BPM input"
+                    />
+                </p>
             </div>
 
             <div className='outer-div'>
