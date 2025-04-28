@@ -59,22 +59,6 @@ function Accordion (props){
         </div>
 
       )}
-      {/*isActive && <div className="accordion-content">
-        {musicForInstrument.length > 0 ? (musicForInstrument.map((music, index) => (
-        <div className="music-card" key={index}>
-            <Link 
-                to = "/sheetmusic" 
-                state= {{ musicPath: music.m_filepath}}
-                className='music-link'
-            > 
-                {music.m_title}
-            </Link>
-        </div>
-        ))
-    ) : (
-            <p>No music for this instrument</p>
-    )}
-        </div>*/}
     </div>
   );
   
@@ -82,22 +66,3 @@ function Accordion (props){
 
 
 export default Accordion;
-
-
-/*const [selectedMusic, setSelectedMusic] = useState([]);
-    
-    useEffect(() => {
-        const fetchUserMusic = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const response = await axios.get("http://localhost:5001/api/backend/uploads", {headers: { Authorization: `Bearer ${token}`}
-                });
-                setSelectedMusic(response.data);             
-                console.log("Fetched User music: ", response.data);
-            } catch(error){
-                console.error("Error fetching user music: ", error);
-            }
-        };
-        fetchUserMusic();
-        
-    }, []); */

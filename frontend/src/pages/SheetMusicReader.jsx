@@ -5,7 +5,7 @@ import NavBar from "../components/NavBar";
 import {useLocation} from "react-router-dom";
 import AudioRecorder from "../components/AudioRecorder";
 import Accordion from "../components/Accordion";
-
+import AudioRecorder from "../components/AudioRecorder";
 
 function SheetMusicReader() {
   const location = useLocation();
@@ -33,13 +33,12 @@ function SheetMusicReader() {
   return(
     <div>
       <NavBar />
-      <div className="sheet-music-reader">
-          {musicContent ? (
-            <SheetMusicRenderer musicString={musicContent} />
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
+      <AudioRecorder />
+      {musicContent ? (
+        <SheetMusicRenderer musicString={musicContent}/>
+      ) : (
+        <p>Loading sheet music...</p>
+      )}
     </div>
   );
 }
