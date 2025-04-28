@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar"; //keep or remove?
+import NavBar from "../components/NavBar"; 
 import React, { useState, useEffect, useRef } from "react";
 
 
@@ -62,19 +62,29 @@ const Metronome = () => {
 
     return(
         <div>
-            <NavBar />
-        <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md border border-black text-2xl">
-            <div className = "mb-4">
+            <NavBar/>
+        <div className= "p-6 max-w-md mx-auto bg-white rounded-xl shadow-md border border-black">
+            <div className = "flex flex-col items-center space-y-4">
                 <img
                     ref = {metronomeRef}
                     src = {metronomeImage}
                     alt = "Metronome"
-                    className = "w-24 h-24 mx-auto transition-transform duration-75 ease-in-out"
+                    className = "w-24 h-24 transition-transform duration-75 ease-in-out"
                 />
             </div>
+            
+            {/*BPM number */}
+            <input
+                type = "number"
+                min = "40"
+                max = "240"
+                value = {bpm}
+                onChange = {(e) => setBpm(Number(e.target.value))}
+                className = "w-full border-2 border-black text-xl px-2 py-1 rounded"
+                aria-label = "BPM input"
+            />
 
-            <label htmlFor = "bpmRange" className = "block text-lg font-medium text-gray-700">
-            </label>
+        {/*Scroll bar*/}
         <input
             //this is the typical metronome range
             id = "bpmRange"
@@ -83,25 +93,15 @@ const Metronome = () => {
             max = "240"
             value = {bpm}
             onChange = {(e) => setBpm(Number(e.target.value))}
-            className = "w-full md-2"
+            className = "w-full"
             aria-label = "BPM range"
             />
-            <input
-                type = "number"
-                min = "40"
-                max = "240"
-                value = {bpm}
-                onChange = {(e) => setBpm(Number(e.target.value))}
-                className = "w-full my-2 border-2 border-black text-xl"
-                aria-label = "BPM input"
-            />
-
-            <label htmlFor = "beatType" className = "block text-sm font-semibold mb-1">
-            </label>
+            
+            {/*Beat type*/}
             <select
                 value = {beatType}
                 onChange = {(e) => setBeatType(e.target.value)}
-                className = "border-2 border-black p-2 rounded text-xl my-2"
+                className = "w-full border-2 border-black p-2 rounded text-xl"
                 >
                     <option value = "quarter"> Quarter Notes</option>
                     <option value = "eighth"> Eighth Notes</option>
@@ -113,13 +113,12 @@ const Metronome = () => {
 
                 <button
                     onClick ={() => setIsPlaying(!isPlaying)}
-                    className = "mt-4 px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
+                    className = "w-full px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
                     >
                         {isPlaying ? "❚❚ Pause" : "▶ Play"}
                     </button>
                 </div>
             </div>
-
     );
 };
 
