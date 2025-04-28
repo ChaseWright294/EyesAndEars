@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar"; 
 import React, { useState, useEffect, useRef } from "react";
+import './Metronome.css'
 
 
 const Metronome = () => {
@@ -19,11 +20,6 @@ const Metronome = () => {
     };
 
     const playClick = () => {
-        if(metronomeRef.current){
-            metronomeRef.current.classList.remove("swing");
-            void metronomeRef.current.offsetWidth; //trigger
-            metronomeRef.current.classList.add("swing");
-        }
         const audio = new Audio("/tick.wav");
         audio.play();
     };
@@ -57,6 +53,13 @@ const Metronome = () => {
         return () => clearInterval(intervalRef.current);
     }, [isPlaying, bpm, beatType]);
 
+    useEffect(() => {
+        if (metronomeRef.current) {
+            const secondsPerBeat = 60 / bpm;
+            metronomeRef.current.style.animationDuration = `${secondsPerBeat}s`;
+        }
+    }, [bpm, isPlaying]); 
+
     return(
         <div>
             <NavBar/>
@@ -64,10 +67,10 @@ const Metronome = () => {
                 <div className = "flex flex-col items-center space-y-4">
                     <div
                         ref = {metronomeRef}
-                        className = "w-2 h-32 bg-black origin-top transition-transform duration-75 ease-in-out"
+                        className={`w-2 h-32 bg-black pendulum ${isPlaying ? "continuousSwing" : ""}`}
                     />
                 </div>
-            
+                
                 {/*BPM number */}
                 <input
                     type = "number"

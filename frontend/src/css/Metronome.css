@@ -1,10 +1,13 @@
 /*for the animated metronome*/
-.swing {
-    transform: rotate(20deg);
-    animation: swingAnimation 0.15s ease-in-out forwards;
+.pendulum {
+    transform-origin: top center;
   }
   
-  @keyframes swingAnimation {
+  .continuousSwing {
+    animation: continuousSwingAnimation 1s infinite ease-in-out;
+  }
+  
+  @keyframes continuousSwingAnimation {
     0% { transform: rotate(20deg); }
     50% { transform: rotate(-20deg); }
     100% { transform: rotate(20deg); }
