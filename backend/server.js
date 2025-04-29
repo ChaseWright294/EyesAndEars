@@ -232,9 +232,6 @@ app.get('/api/instrumentMusic/:id', verifyToken, async(req, res) => {
     }catch (error) {
         console.error("Error fetching usersheet music: ", error);
     }
-
-    //const file = req.file;
-    //const filePath = file.path;
 });
 
 app.use('/uploads', express.static('uploads'));
