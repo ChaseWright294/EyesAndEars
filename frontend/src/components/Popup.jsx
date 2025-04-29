@@ -1,6 +1,7 @@
 import '../css/Popup.css';
 import { Link } from "react-router-dom";
 
+
 function Popup(props) {
     console.log("pop up instrument:", props.instrument);
     return(props.trigger) ? (
@@ -12,9 +13,9 @@ function Popup(props) {
                         <Link to ="/saved-audio" className='save-nav'>saved audios</Link>
                         
                         <Link to ="/upload-sheetmusic"
-                        state={{ instrument:props.instrument}} className='save-nav'>upload sheet music</Link>
-
-                        {/*<Link to ="/dropdown" className='save-nav'>saved sheet music</Link>*/}
+                        state={{ instrument:props.instrument}} className='save-nav'>
+                            upload sheet music
+                        </Link>
                     </div>
                
             </div>
