@@ -1,6 +1,6 @@
 import NavBar from "../components/NavBar"; 
 import React, { useState, useEffect, useRef } from "react";
-import './Metronome.css'
+import '../css/Metronome.css'
 
 
 const Metronome = () => {
@@ -67,7 +67,7 @@ const Metronome = () => {
                 <div className = "flex flex-col items-center space-y-4">
                     <div
                         ref = {metronomeRef}
-                        className={`w-2 h-32 bg-black pendulum ${isPlaying ? "continuousSwing" : ""}`}
+                        className={`w-4 h-32 bg-black pendulum ${isPlaying ? "continuousSwing" : ""}`}
                     />
                 </div>
                 
