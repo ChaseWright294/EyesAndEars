@@ -100,7 +100,7 @@ const Metronome = () => {
 
                 {/* Beat Type Selector */}
                 <div>
-                    <label htmlFor="beatType" className="block text-sm font-semibold mb-1"> </label>
+                    <label htmlFor="beatType" className="block text-sm font-semibold mb-2"> </label>
                     <select
                         value={beatType}
                         onChange={(e) => setBeatType(e.target.value)}
@@ -119,7 +119,7 @@ const Metronome = () => {
                     onClick={() => setIsPlaying(!isPlaying)}
                     className="w-full px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
                 >
-                    {isPlaying ? "Stop" : "Play"}
+                    {isPlaying ? "❚❚ Pause" : "▶ Play"}
                 </button>
             </div>
         </div>
