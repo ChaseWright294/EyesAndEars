@@ -12,7 +12,7 @@
     height: 275px;
     color: black;
     position: relative;
-    
+    margin-top: -250px;
 }
 
 .signup-form h1 {

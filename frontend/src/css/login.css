@@ -15,7 +15,7 @@
     padding: 40px;
     border-radius: 30px;
     width: 1200px;
-    height: 500px;
+    height: 600px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     padding-right: 30px;
     gap: 0;
@@ -55,11 +55,11 @@ body {
 .login-form{
     background: transparent;
     width: 520px;
-    padding: 20px 20px 120px 20px;
+    padding: 20px 20px 20px 20px;
     height: 275px;
     color: black;
     position: relative;
-    
+    margin-top: -170px;
 }
 
 .login-form h1{
