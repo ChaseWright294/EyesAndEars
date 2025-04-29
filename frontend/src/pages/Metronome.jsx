@@ -1,7 +1,6 @@
-import NavBar from "../components/NavBar"; 
+import NavBar from "../components/NavBar"; //keep or remove?
 import React, { useState, useEffect, useRef } from "react";
-import '../css/Metronome.css'
-
+//import metronomeImage from '../images/metronomeImage.png';
 
 const Metronome = () => {
     const [bpm, setBpm] = useState(100);
@@ -9,6 +8,7 @@ const Metronome = () => {
     const [beatType, setBeatType] = useState("quarter");
     const intervalRef = useRef(null);
     const metronomeRef = useRef(null);
+    const metronomeImage = "/metronomeImage.png";
 
     const beatIntervals = {
         quarter: 1,
@@ -20,6 +20,11 @@ const Metronome = () => {
     };
 
     const playClick = () => {
+        if(metronomeRef.current){
+            metronomeRef.current.classList.remove("active");
+            void metronomeRef.current.offsetWidth; //trigger
+            metronomeRef.current.classList.add("active");
+        }
         const audio = new Audio("/tick.wav");
         audio.play();
     };
@@ -31,17 +36,18 @@ const Metronome = () => {
             intervalRef.current = setInterval(() => {
                 playClick();
                 setTimeout(() => 
-                    playClick(),
-                    (60000 / bpm) * 2/3); //had to look up swing beat
+                playClick(),
+                 (60000 / bpm) * 2/3); //had to look up swing beat
             }, 60000 / bpm);
             return;
         } 
             const subdivision = beatIntervals[beatType] || 1;
             intervalRef.current = setInterval(() => {
                 playClick();
+                count = (count + 1) % subdivision;
             }, (60000 / bpm) / subdivision);
-        };
-
+        
+    };
 
     useEffect(() => {
         if(isPlaying){
@@ -53,53 +59,49 @@ const Metronome = () => {
         return () => clearInterval(intervalRef.current);
     }, [isPlaying, bpm, beatType]);
 
-    useEffect(() => {
-        if (metronomeRef.current) {
-            const secondsPerBeat = 60 / bpm;
-            metronomeRef.current.style.animationDuration = `${secondsPerBeat}s`;
-        }
-    }, [bpm, isPlaying]); 
-
     return(
         <div>
-            <NavBar/>
-            <div className= "p-6 max-w-md mx-auto bg-white rounded-xl shadow-md border border-black">
-                <div className = "flex flex-col items-center space-y-4">
-                    <div
-                        ref = {metronomeRef}
-                        className={`w-4 h-32 bg-black pendulum ${isPlaying ? "continuousSwing" : ""}`}
-                    />
-                </div>
-                
-                {/*BPM number */}
-                <input
-                    type = "number"
-                    min = "40"
-                    max = "240"
-                    value = {bpm}
-                    onChange = {(e) => setBpm(Number(e.target.value))}
-                    className = "w-full border-2 border-black text-xl px-2 py-1 rounded"
-                    aria-label = "BPM input"
-                />
+            <NavBar />
+        <div className= "p-6 max-w-md mx-auto text-center bg-white rounded-xl shadow-md border border-black text-2xl">
+            <div className = "mb-4">
+                <img
+                    ref = {metronomeRef}
+                    src = {metronomeImage}
+                    alt = "Metronome"
+                    className="w-12 md:w-16 lg:w-20 h-auto mx-auto"
 
-                {/*Scroll bar*/}
-                <input
-                    //this is the typical metronome range
-                    id = "bpmRange"
-                    type = "range"
-                    min = "40"
-                    max = "240"
-                    value = {bpm}
-                    onChange = {(e) => setBpm(Number(e.target.value))}
-                    className = "w-full"
-                    aria-label = "BPM range"
                 />
-            
-                {/*Beat type*/}
-                <select
-                    value = {beatType}
-                    onChange = {(e) => setBeatType(e.target.value)}
-                    className = "w-full border-2 border-black p-2 rounded text-xl"
+            </div>
+
+            <label htmlFor = "bpmRange" className = "block text-lg font-medium text-gray-700">
+                
+            </label>
+        <input
+            //this is the typical metronome range
+            id = "bpmRange"
+            type = "range"
+            min = "40"
+            max = "240"
+            value = {bpm}
+            onChange = {(e) => setBpm(Number(e.target.value))}
+            className = "w-full md-2"
+            aria-label = "BPM range"
+            />
+            <input
+                type = "number"
+                min = "40"
+                max = "240"
+                value = {bpm}
+                onChange = {(e) => setBpm(Number(e.target.value))}
+                className = "w-full my-2 border-2 border-black text-xl"
+                aria-label = "BPM input"
+            />
+
+            <label htmlFor = "beatType" className = "block text-sm font-semibold mb-1"> </label>
+            <select
+                value = {beatType}
+                onChange = {(e) => setBeatType(e.target.value)}
+                className = "border-2 border-black p-2 rounded text-xl my-2"
                 >
                     <option value = "quarter"> Quarter Notes</option>
                     <option value = "eighth"> Eighth Notes</option>
@@ -111,12 +113,13 @@ const Metronome = () => {
 
                 <button
                     onClick ={() => setIsPlaying(!isPlaying)}
-                    className = "w-full px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
+                    className = "mt-4 px-4 py-3 bg-pink-600 hover:bg-pink-700 text-white text-xl rounded shadow-md"
                     >
-                        {isPlaying ? "❚❚ Pause" : "▶ Play"}
+                        {isPlaying ? "Stop" : "Play"}
                     </button>
                 </div>
             </div>
+
     );
 };
 
