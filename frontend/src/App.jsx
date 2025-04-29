@@ -8,11 +8,12 @@ import Tuner from './pages/Tuner'
 import Metronome from './pages/Metronome'
 import SheetMusicReader from './pages/SheetMusicReader'
 import {Routes, Route} from "react-router-dom"
-import NavBar from './components/NavBar'
 import Signup from './components/Signup'
 import Login from './components/Login'
 import UploadSheetMusic from './pages/UploadSheetMusic'
 import InstrumentSheetMusic from './pages/InstrumentSheetMusic'
+import Blank from './';
+
 
 function App() {
   return (
