@@ -1,9 +1,146 @@
+.outer-div{
+    position: relative;
+}
+
 .renderer{
     width: 1200px;
-    height: 460px;
+    max-height: auto;
     background-color: white;
-    overflow: scroll;
+    overflow-x: hidden;
     scrollbar-color: #f88784 white;
     /* scrollbar-color: #ffd2d1 white; */ /*lighter color that matches the background better, but worse contrast*/
 }
 
+.score{
+    width: 100%;
+    overflow-x: auto;
+}
+
+.cursor{
+    height: 70%;
+    width: 5px;
+    background-color: #ff0000aa;
+    position: absolute;
+    z-index: 9;
+    margin-left: 100px;
+    margin-top: 6%;
+}
+
+.btn-holder{
+    margin-bottom: -20px;
+}
+
+.play-btn{
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.play-btn:hover{
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: xx-large;
+    padding: 10px 15px;
+    border-radius: 100%;
+}
+
+.cursor-btn{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.cursor-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #f88784;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.reset-btn:hover{
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-block;
+    background-color: #fd5b56;
+    border-color: black;
+    border-width: 3px;
+    font-size: large;
+    vertical-align: 20%;
+}
+
+.vexflow-container{
+    display: flex;
+    justify-content: left;
+    float: left;
+}
+
+.tempo-div{
+    margin-top: -40px;
+    margin-bottom: -30px;
+}
+
+.tempo-slider{
+    display: inline-block;
+    vertical-align: 0%;
+    margin-right: -10px;
+}
+
+.tempo-speed{
+    display: inline-block;
+    margin-left: 8px;
+    font-size: xxx-large;
+}
+
+/* Styles the slider for Chrome */
+#tempo-slider{
+    appearance: none;
+    width: 165px;
+    margin-top: 10px;
+    background: transparent;
+}
+
+#tempo-slider::-webkit-slider-runnable-track{
+    background: #f88784;
+    height: 15px;
+    border-radius: 10px;
+}
+
+#tempo-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background: #f03029;
+    margin-top: -8px;
+    cursor: pointer;
+}

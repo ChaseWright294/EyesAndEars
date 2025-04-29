@@ -1,0 +1,57 @@
+/* Popup Box */
+.audio-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 16px;
+  padding: 24px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+/* Close Button */
+.audio-close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: rgb(242, 97, 97);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Header */
+.audio-popup h2 {
+  margin-top: 0;
+  font-size: 24px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Audio List */
+.audio-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.audio-list li {
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.audio-list p {
+  margin: 0 0 4px 0;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.audio-list audio {
+  width: 100%;
+}

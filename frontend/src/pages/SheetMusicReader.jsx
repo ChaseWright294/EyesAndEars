@@ -3,8 +3,8 @@ import MusicFileUpload from "../components/MusicFileUpload";
 import SheetMusicRenderer from "../components/SheetMusicRenderer";
 import NavBar from "../components/NavBar";
 import {useLocation} from "react-router-dom";
-import Accordion from "../components/Accordion";
 import AudioRecorder from "../components/AudioRecorder";
+import Accordion from "../components/Accordion";
 
 function SheetMusicReader() {
   const location = useLocation();

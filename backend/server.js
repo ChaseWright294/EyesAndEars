@@ -71,12 +71,13 @@ app.get('/', (req, res) => {
     res.send('Backend is running in VS Code! Hi there!');
 });
 
-app.get('/api/tbl_users', async (req, res) => {
+app.get('/api/tbl_users', verifyToken, async (req, res) => {
     try {
+        user_id = req.user.id
         // Query to get all users from the database
-        const result = await pool.query('SELECT * FROM tbl_users');
+        const result = await pool.query('SELECT u_name FROM tbl_users WHERE u_id_pk = $1', [user_id]);
         
-        // Send the retrieved users data as a response
+        // Send the retrieved user name as a response
         res.json(result.rows);  // result.rows contains the data from the query
     } catch (err) {
         console.error('Error retrieving data from database:', err);
@@ -111,7 +112,7 @@ app.post('/api/user-instruments', verifyToken, async (req, res) => {
 app.get('/api/user-instruments', verifyToken, async(req, res) => {
     const user_id = req.user.id;
     try {
-        const result = await pool.query("SELECT i_name, i_id_pk FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1", [user_id]);
+        const result = await pool.query("SELECT i_name, i_id_pk, i_image FROM tbl_users INNER JOIN tbl_user_instruments ON u_id_pk = u_id_fk INNER JOIN tbl_instruments ON i_id_fk = i_id_pk WHERE u_id_pk = $1 ORDER BY i_name ASC", [user_id]);
         res.json(result.rows);
         console.log("Fetched user instruments: ", result.rows);  
     } catch (error) {

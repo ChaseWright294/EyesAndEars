@@ -2,7 +2,7 @@ import './css/App.css'
 import './css/HomeCard.css'
 import './css/Navbar.css'
 import Home from './pages/Home'
-import Audio from './pages/Audio'
+import SavedAudioPage from './pages/SavedAudioPage'
 import Instruments from './pages/Instruments'
 import Tuner from './pages/Tuner'
 import Metronome from './pages/Metronome'
@@ -22,7 +22,7 @@ function App() {
           <Route path="/"             element={<Login />}/>
           <Route path="/home" element={<Home />}/>
           <Route path="/Signup" element={<Signup />}/>
-          <Route path="/saved-audio"        element={<Audio />}/>
+          <Route path="/saved-audio"        element={<SavedAudioPage />}/>
           <Route path="/instruments"  element={<Instruments />}/>
           <Route path="/tuner"        element={<Tuner />}/>
           <Route path="/metronome"    element={<Metronome />}/>
@@ -35,4 +35,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
