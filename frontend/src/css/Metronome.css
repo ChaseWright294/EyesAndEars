@@ -1,0 +1,23 @@
+#tempo-slider{
+    appearance: none;
+    width: 200px;
+    margin-top: 10px;
+    background: transparent;
+  }
+  
+  #tempo-slider::-webkit-slider-runnable-track{
+    background: #f88784;
+    height: 15px;
+    border-radius: 10px;
+  }
+  
+  #tempo-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background: #f03029;
+    margin-top: -8px;
+    cursor: pointer;
+  }
