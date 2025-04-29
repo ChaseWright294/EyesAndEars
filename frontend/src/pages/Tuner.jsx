@@ -180,7 +180,7 @@ const styles = {
     textAlign: "center",
     background: "#ffe4e1", // Pinkish white color
     color: "#ccc",
-    height: "80vh",
+    height: "800px",
     width: "130%",
     paddingTop: "30px",
     fontFamily: "sans-serif",
